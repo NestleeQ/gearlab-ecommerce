@@ -4,7 +4,7 @@ import {
 	DropdownMenuContent,
 	DropdownMenuItem,
 	DropdownMenuTrigger
-} from '@/components/ui/DropdownMenu/dropdown-menu'
+} from '@/components/ui/DropdownMenu/DropdownMenu'
 import { ChevronDown, ChevronUp } from 'lucide-react'
 import Link from 'next/link'
 import { useState } from 'react'
@@ -23,55 +23,55 @@ export default function Menu() {
 				</Link>
 			</li>
 			<li>
-				<Link
-					href='/categories'
-					className='text-body text-neutral-500 font-medium'
+				<DropdownMenu
+					onOpenChange={() => setIsOpen(!isOpen)}
+					modal={false}
 				>
-					<DropdownMenu onOpenChange={() => setIsOpen(!isOpen)}>
-						<DropdownMenuTrigger className='flex cursor-pointer'>
+					<DropdownMenuTrigger className='cursor-pointer'>
+						<span className='flex text-body text-neutral-500 font-medium'>
 							Categories{' '}
 							{isOpen ? (
 								<ChevronUp className='w-5 ml-1' />
 							) : (
 								<ChevronDown className='w-5 ml-1' />
 							)}
-						</DropdownMenuTrigger>
-						<DropdownMenuContent>
-							<DropdownMenuItem>
-								<Link
-									href='/'
-									className='text-body text-neutral-500 font-medium'
-								>
-									Profile
-								</Link>
-							</DropdownMenuItem>
-							<DropdownMenuItem>
-								<Link
-									href='/'
-									className='text-body text-neutral-500 font-medium'
-								>
-									Billing
-								</Link>
-							</DropdownMenuItem>
-							<DropdownMenuItem>
-								<Link
-									href='/'
-									className='text-body text-neutral-500 font-medium'
-								>
-									Team
-								</Link>
-							</DropdownMenuItem>
-							<DropdownMenuItem>
-								<Link
-									href='/'
-									className='text-body text-neutral-500 font-medium'
-								>
-									Subscription
-								</Link>
-							</DropdownMenuItem>
-						</DropdownMenuContent>
-					</DropdownMenu>
-				</Link>
+						</span>
+					</DropdownMenuTrigger>
+					<DropdownMenuContent>
+						<DropdownMenuItem>
+							<Link
+								href='/'
+								className='text-body text-neutral-500 font-medium'
+							>
+								Profile
+							</Link>
+						</DropdownMenuItem>
+						<DropdownMenuItem>
+							<Link
+								href='/'
+								className='text-body text-neutral-500 font-medium'
+							>
+								Billing
+							</Link>
+						</DropdownMenuItem>
+						<DropdownMenuItem>
+							<Link
+								href='/'
+								className='text-body text-neutral-500 font-medium'
+							>
+								Team
+							</Link>
+						</DropdownMenuItem>
+						<DropdownMenuItem>
+							<Link
+								href='/'
+								className='text-body text-neutral-500 font-medium'
+							>
+								Subscription
+							</Link>
+						</DropdownMenuItem>
+					</DropdownMenuContent>
+				</DropdownMenu>
 			</li>
 			<li>
 				<Link
