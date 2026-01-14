@@ -1,4 +1,4 @@
-import { productsData } from '@/app/data/products.data'
+import { productsBestSelling } from '@/app/data/products.data'
 import PageContainer from '@/components/layout/PageContainer/PageContainer'
 import ProductCard from '@/components/ui/ProductCard/ProductCard'
 import Title from '@/components/ui/Title/Title'
@@ -11,7 +11,7 @@ export default function BestSellingSection() {
 				<Title>Best Selling</Title>
 			</div>
 			<div className='flex justify-center items-center mt-20'>
-				{productsData.map(elem => {
+				{productsBestSelling.map(elem => {
 					return (
 						<ProductCard
 							className='ml-8'

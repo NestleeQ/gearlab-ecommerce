@@ -3,7 +3,7 @@ import Image from 'next/image'
 import ProductStatus from '../ProductStatus/ProductStatus'
 
 interface iProductCard {
-	className: string
+	className?: string
 	imagePath: string
 	title: string
 	status: boolean

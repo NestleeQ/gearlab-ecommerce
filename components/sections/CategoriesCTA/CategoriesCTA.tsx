@@ -33,6 +33,7 @@ export default function CategoriesCTA() {
 					alt='categories-cta'
 					width={225}
 					height={311}
+					preload={true}
 				/>
 			</PageContainer>
 		</div>

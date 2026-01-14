@@ -3,6 +3,7 @@ import AdvantagesSection from '@/components/sections/AdvantagesSection/Advantage
 import BannerSection from '@/components/sections/BannerSection/BannerSection'
 import BestSellingSection from '@/components/sections/BestSellingSection/BestSellingSection'
 import CategoriesCTA from '@/components/sections/CategoriesCTA/CategoriesCTA'
+import ProductList from '@/components/sections/ProductList/ProductList'
 
 export default function Home() {
 	return (
@@ -12,6 +13,7 @@ export default function Home() {
 			<AdvantagesSection />
 			<BestSellingSection />
 			<CategoriesCTA />
+			<ProductList />
 		</div>
 	)
 }
