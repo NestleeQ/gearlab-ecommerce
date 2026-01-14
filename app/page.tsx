@@ -1,3 +1,4 @@
+import Footer from '@/components/layout/Footer/Footer'
 import Header from '@/components/layout/Header/Header'
 import AdvantagesSection from '@/components/sections/AdvantagesSection/AdvantagesSection'
 import BannerSection from '@/components/sections/BannerSection/BannerSection'
@@ -14,6 +15,7 @@ export default function Home() {
 			<BestSellingSection />
 			<CategoriesCTA />
 			<ProductList />
+			<Footer />
 		</div>
 	)
 }

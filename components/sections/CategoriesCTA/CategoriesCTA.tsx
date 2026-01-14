@@ -29,7 +29,7 @@ export default function CategoriesCTA() {
 					</Button>
 				</div>
 				<Image
-					src='/images/categories_cta/categories_cta_back.png'
+					src='/images/categories-cta/categories-cta-back.png'
 					alt='categories-cta'
 					width={225}
 					height={311}

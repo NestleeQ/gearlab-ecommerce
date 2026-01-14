@@ -47,8 +47,8 @@ export default function Banner() {
 						/>
 					</svg>
 					<Image
-						src='/images/hero/model_back.png'
-						alt='hero_banner'
+						src='/images/hero/model-back.png'
+						alt='hero-banner'
 						className='absolute bottom-0 right-52'
 						width={255}
 						height={382}

@@ -1,4 +1,4 @@
-import { productsFeatured, productsLatest } from '@/app/data/products.data'
+import { productsFeatured } from '@/app/data/products.data'
 import PageContainer from '@/components/layout/PageContainer/PageContainer'
 import ProductCard from '@/components/ui/ProductCard/ProductCard'
 import {
@@ -40,7 +40,7 @@ export default function ProductList() {
 					value='latest'
 					className='flex mt-12'
 				>
-					{productsLatest.map(elem => {
+					{productsFeatured.map(elem => {
 						return (
 							<ProductCard
 								className='ml-8'
