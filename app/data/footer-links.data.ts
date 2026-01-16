@@ -83,7 +83,7 @@ export const acceptedPaymentsLinks: iLink[] = [
 		icon: {
 			path: '/icons/payments/amex-ic.svg',
 			width: 46,
-			height: 12
+			height: 18
 		}
 	},
 	{
@@ -93,7 +93,7 @@ export const acceptedPaymentsLinks: iLink[] = [
 		icon: {
 			path: '/icons/payments/visa-ic.svg',
 			width: 42,
-			height: 14
+			height: 18
 		}
 	}
 ]

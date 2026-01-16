@@ -22,7 +22,7 @@ export default function Footer() {
 						</Text>
 						<ul className='flex items-center space-x-6 mt-8'>
 							<li>
-								<Link href='/'>
+								<Link href='https://github.com/NestleeQ'>
 									<svg
 										width='20'
 										height='20'

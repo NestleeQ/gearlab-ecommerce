@@ -29,7 +29,7 @@ export default function List({ className, title, links }: iList) {
 						<li key={elem.id}>
 							<Link
 								href={elem.url}
-								className='text-body text-neutral-500 font-medium'
+								className='text-body text-neutral-500 font-medium hover:text-neutral-300'
 							>
 								{elem.icon && elem.icon?.path ? (
 									<Image

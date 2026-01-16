@@ -1,5 +1,6 @@
-interface iProducts {
+export interface iProducts {
 	id: number
+	slug: string
 	imagePath: string
 	title: string
 	status: boolean
@@ -9,6 +10,7 @@ interface iProducts {
 export const productsBestSelling: iProducts[] = [
 	{
 		id: 0,
+		slug: 'classic-monochrome-tees',
 		imagePath: '/images/products/best-selling/cover-1.png',
 		title: 'Classic Monochrome Tees',
 		status: true,
@@ -16,6 +18,7 @@ export const productsBestSelling: iProducts[] = [
 	},
 	{
 		id: 1,
+		slug: 'monochromatic-wardrobe',
 		imagePath: '/images/products/best-selling/cover-2.png',
 		title: 'Monochromatic Wardrobe',
 		status: true,
@@ -23,6 +26,7 @@ export const productsBestSelling: iProducts[] = [
 	},
 	{
 		id: 2,
+		slug: 'essential-neutrals',
 		imagePath: '/images/products/best-selling/cover-3.png',
 		title: 'Essential Neutrals',
 		status: true,
@@ -30,6 +34,7 @@ export const productsBestSelling: iProducts[] = [
 	},
 	{
 		id: 3,
+		slug: 'utraanet-black',
 		imagePath: '/images/products/best-selling/cover-4.png',
 		title: 'UTRAANET Black',
 		status: true,
@@ -40,6 +45,7 @@ export const productsBestSelling: iProducts[] = [
 export const productsFeatured: iProducts[] = [
 	{
 		id: 0,
+		slug: 'elegant-ebony-sweatshirts',
 		imagePath: '/images/products/featured/cover-1.png',
 		title: 'Elegant Ebony Sweatshirts',
 		status: true,
@@ -47,6 +53,7 @@ export const productsFeatured: iProducts[] = [
 	},
 	{
 		id: 1,
+		slug: 'sleek-and-cozy-black',
 		imagePath: '/images/products/featured/cover-2.png',
 		title: 'Sleek and Cozy Black',
 		status: true,
@@ -54,6 +61,7 @@ export const productsFeatured: iProducts[] = [
 	},
 	{
 		id: 2,
+		slug: 'raw-black-tees',
 		imagePath: '/images/products/featured/cover-3.png',
 		title: 'Raw Black Tees',
 		status: true,
@@ -61,6 +69,7 @@ export const productsFeatured: iProducts[] = [
 	},
 	{
 		id: 3,
+		slug: 'mockup-black',
 		imagePath: '/images/products/featured/cover-4.png',
 		title: 'MOCKUP Black',
 		status: true,

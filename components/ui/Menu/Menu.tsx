@@ -44,7 +44,7 @@ export default function Menu() {
 			<li>
 				<Link
 					href='/'
-					className='text-body text-neutral-500 font-medium'
+					className='text-body text-neutral-500 font-medium hover:text-neutral-300'
 				>
 					Home
 				</Link>
@@ -55,7 +55,7 @@ export default function Menu() {
 					modal={false}
 				>
 					<DropdownMenuTrigger className='cursor-pointer'>
-						<span className='flex text-body text-neutral-500 font-medium'>
+						<span className='flex text-body text-neutral-500 font-medium hover:text-neutral-300'>
 							Categories{' '}
 							{isOpen ? (
 								<ChevronUp className='w-5 ml-1' />
@@ -70,7 +70,7 @@ export default function Menu() {
 								<DropdownMenuItem key={elem.value}>
 									<Link
 										href={`/products?cat=${elem.value}`}
-										className='text-body text-neutral-500 font-medium'
+										className='text-body text-neutral-500 font-medium hover:text-neutral-300'
 									>
 										{elem.label}
 									</Link>
@@ -83,7 +83,7 @@ export default function Menu() {
 			<li>
 				<Link
 					href='/about'
-					className='text-body text-neutral-500 font-medium'
+					className='text-body text-neutral-500 font-medium hover:text-neutral-300'
 				>
 					About
 				</Link>
@@ -91,7 +91,7 @@ export default function Menu() {
 			<li>
 				<Link
 					href='/contacts'
-					className='text-body text-neutral-500 font-medium'
+					className='text-body text-neutral-500 font-medium hover:text-neutral-300'
 				>
 					Contact
 				</Link>

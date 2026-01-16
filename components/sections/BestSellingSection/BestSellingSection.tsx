@@ -10,12 +10,13 @@ export default function BestSellingSection() {
 				<p className='text-label text-neutral-300'>SHOP NOW</p>
 				<Title>Best Selling</Title>
 			</div>
-			<div className='flex justify-center items-center mt-20'>
+			<div className='flex justify-center items-center mt-20 space-x-8'>
 				{productsBestSelling.map(elem => {
 					return (
 						<ProductCard
-							className='ml-8'
 							key={elem.id}
+							id={elem.id}
+							slug={elem.slug}
 							imagePath={elem.imagePath}
 							title={elem.title}
 							status={elem.status}

@@ -23,7 +23,7 @@ export default function CategoriesCTA() {
 					<Button
 						variant='default'
 						size='lg'
-						className='mt-8'
+						className='mt-8 font-medium rounded-sm'
 					>
 						Start Browsing {''} <MoveRight />
 					</Button>

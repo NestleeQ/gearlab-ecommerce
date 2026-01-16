@@ -21,13 +21,14 @@ export default function ProductList() {
 				</TabsList>
 				<TabsContent
 					value='featured'
-					className='flex mt-12'
+					className='flex mt-12 space-x-8'
 				>
 					{productsFeatured.map(elem => {
 						return (
 							<ProductCard
-								className='ml-8'
 								key={elem.id}
+								id={elem.id}
+								slug={elem.slug}
 								imagePath={elem.imagePath}
 								title={elem.title}
 								status={elem.status}
@@ -38,13 +39,14 @@ export default function ProductList() {
 				</TabsContent>
 				<TabsContent
 					value='latest'
-					className='flex mt-12'
+					className='flex mt-12 space-x-8'
 				>
 					{productsFeatured.map(elem => {
 						return (
 							<ProductCard
-								className='ml-8'
 								key={elem.id}
+								id={elem.id}
+								slug={elem.slug}
 								imagePath={elem.imagePath}
 								title={elem.title}
 								status={elem.status}

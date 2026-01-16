@@ -13,10 +13,10 @@ export default function Header() {
 				<Search />
 				<div className='flex items-center ml-8 space-x-6'>
 					<Link href='/cart'>
-						<ShoppingCart className='text-neutral-500' />
+						<ShoppingCart className='text-neutral-500 hover:text-neutral-300' />
 					</Link>
 					<Link href='/profile'>
-						<User className='text-neutral-500' />
+						<User className='text-neutral-500 hover:text-neutral-300' />
 					</Link>
 				</div>
 			</div>
