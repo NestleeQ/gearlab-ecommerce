@@ -65,7 +65,7 @@ export default function ProductCard({
 				<div className='flex mt-3'>
 					<ProductStatus status={status} />
 					<p className='text-heading-h5 text-neutral-600 ml-4'>
-						{convertPrice(price)}
+						{convertPrice(2, () => price / 100)}
 					</p>
 				</div>
 			</div>
