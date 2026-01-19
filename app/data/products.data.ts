@@ -9,7 +9,8 @@ export interface iProducts {
 
 interface iProductColors {
 	id: number
-	color: string
+	value: string
+	label: string
 }
 
 interface iProductSizes {
@@ -87,22 +88,125 @@ export const productsFeatured: iProducts[] = [
 	}
 ]
 
-export const productColors: iProductColors[] = [
+export const productsCatalog: iProducts[] = [
 	{
 		id: 0,
-		color: 'blue-400'
+		slug: 'elegant-ebony-sweatshirts',
+		imagePath: '/images/products/featured/cover-1.png',
+		title: 'Elegant Ebony Sweatshirts',
+		status: true,
+		price: 3500
 	},
 	{
 		id: 1,
-		color: 'yellow-400'
+		slug: 'sleek-and-cozy-black',
+		imagePath: '/images/products/featured/cover-2.png',
+		title: 'Sleek and Cozy Black',
+		status: true,
+		price: 5700
 	},
 	{
 		id: 2,
-		color: 'green-400'
+		slug: 'raw-black-tees',
+		imagePath: '/images/products/featured/cover-3.png',
+		title: 'Raw Black Tees',
+		status: true,
+		price: 1900
 	},
 	{
 		id: 3,
-		color: 'blue-900'
+		slug: 'mockup-black',
+		imagePath: '/images/products/featured/cover-4.png',
+		title: 'MOCKUP Black',
+		status: true,
+		price: 3000
+	},
+	{
+		id: 4,
+		slug: 'elegant-ebony-sweatshirts',
+		imagePath: '/images/products/featured/cover-1.png',
+		title: 'Elegant Ebony Sweatshirts',
+		status: true,
+		price: 3500
+	},
+	{
+		id: 5,
+		slug: 'sleek-and-cozy-black',
+		imagePath: '/images/products/featured/cover-2.png',
+		title: 'Sleek and Cozy Black',
+		status: true,
+		price: 5700
+	},
+	{
+		id: 6,
+		slug: 'raw-black-tees',
+		imagePath: '/images/products/featured/cover-3.png',
+		title: 'Raw Black Tees',
+		status: true,
+		price: 1900
+	},
+	{
+		id: 7,
+		slug: 'mockup-black',
+		imagePath: '/images/products/featured/cover-4.png',
+		title: 'MOCKUP Black',
+		status: true,
+		price: 3000
+	},
+	{
+		id: 8,
+		slug: 'elegant-ebony-sweatshirts',
+		imagePath: '/images/products/featured/cover-1.png',
+		title: 'Elegant Ebony Sweatshirts',
+		status: true,
+		price: 3500
+	},
+	{
+		id: 9,
+		slug: 'sleek-and-cozy-black',
+		imagePath: '/images/products/featured/cover-2.png',
+		title: 'Sleek and Cozy Black',
+		status: true,
+		price: 5700
+	},
+	{
+		id: 10,
+		slug: 'raw-black-tees',
+		imagePath: '/images/products/featured/cover-3.png',
+		title: 'Raw Black Tees',
+		status: true,
+		price: 1900
+	},
+	{
+		id: 11,
+		slug: 'mockup-black',
+		imagePath: '/images/products/featured/cover-4.png',
+		title: 'MOCKUP Black',
+		status: true,
+		price: 3000
+	}
+]
+
+export const productColors: iProductColors[] = [
+	{
+		id: 0,
+		label: 'blue',
+		value: 'blue-400'
+	},
+	{
+		id: 1,
+		label: 'yellow',
+		value: 'yellow-400'
+	},
+	{
+		id: 2,
+		label: 'green',
+		value: 'green-400'
+	},
+	{
+		id: 3,
+		label: 'dark blur',
+		value: 'blue-900'
 	}
 ]
 

@@ -1,6 +1,3 @@
-// hooks/useQueryParams.ts
-'use client'
-
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useMemo } from 'react'
 
@@ -74,11 +71,68 @@ export function useQueryParams() {
 		})
 	}, [updateQueryParams])
 
+	// Обновленный removeFilter с поддержкой удаления конкретного элемента массива
+	const removeFilter = useCallback(
+		(
+			key: 'category' | 'color' | 'size' | 'price_min' | 'price_max',
+			valueToRemove?: string
+		) => {
+			if (key === 'price_min' || key === 'price_max') {
+				// Для цен удаляем оба параметра сразу
+				updateQueryParams({
+					price_min: null,
+					price_max: null
+				})
+			} else if (
+				valueToRemove &&
+				['category', 'color', 'size'].includes(key)
+			) {
+				// Удаляем конкретный элемент из массива
+				const current = params[key]
+				const newValues = current.filter(v => v !== valueToRemove)
+				updateQueryParams({ [key]: newValues })
+			} else {
+				// Удалить весь фильтр
+				updateQueryParams({ [key]: null })
+			}
+		},
+		[params, updateQueryParams]
+	)
+
+	const clearFilters = useCallback(() => {
+		resetFilters()
+	}, [resetFilters])
+
+	const getAllParams = useMemo(() => {
+		const allParams: Record<string, string> = {}
+
+		Object.entries(params).forEach(([key, value]) => {
+			if (Array.isArray(value) && value.length > 0) {
+				allParams[key] = value.join(',')
+			} else if (typeof value === 'string' && value) {
+				allParams[key] = value
+			}
+		})
+
+		const otherKeys = ['sort', 'order', 'search', 'page']
+		otherKeys.forEach(key => {
+			const value = searchParams.get(key)
+			if (value) {
+				allParams[key] = value
+			}
+		})
+
+		return allParams
+	}, [params, searchParams])
+
 	return {
 		params,
+		allParams: getAllParams,
 		toggleArrayParam,
 		updateQueryParams,
 		setPriceRange,
-		resetFilters
+		resetFilters,
+		removeFilter,
+		clearFilters
 	}
 }

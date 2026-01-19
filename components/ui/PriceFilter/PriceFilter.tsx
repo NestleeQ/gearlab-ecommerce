@@ -8,20 +8,24 @@ import Text from '../Text/Text'
 export default function PriceFilter() {
 	const { params, setPriceRange } = useQueryParams()
 
-	const [localValues, setLocalValues] = useState<[number, number]>([
-		parseInt(params.price_min) || 1600,
-		parseInt(params.price_max) || 5700
-	])
-
-	const [tempValues, setTempValues] = useState<[number, number]>(localValues)
-	const [isSliderDragging, setIsSliderDragging] = useState(false)
-
 	const currentMin = parseInt(params.price_min) || 1600
 	const currentMax = parseInt(params.price_max) || 5700
 
-	if (localValues[0] !== currentMin || localValues[1] !== currentMax) {
-		setLocalValues([currentMin, currentMax])
-		setTempValues([currentMin, currentMax])
+	const [localValues, setLocalValues] = useState<[number, number]>([
+		currentMin,
+		currentMax
+	])
+	const [pendingValues, setPendingValues] = useState<[number, number] | null>(
+		null
+	)
+
+	if (
+		pendingValues &&
+		pendingValues[0] === currentMin &&
+		pendingValues[1] === currentMax
+	) {
+		setLocalValues(pendingValues)
+		setPendingValues(null)
 	}
 
 	const handleInputChange = (
@@ -41,7 +45,6 @@ export default function PriceFilter() {
 			}
 
 			setLocalValues(newValues)
-			setTempValues(newValues)
 		}
 	}
 
@@ -51,16 +54,12 @@ export default function PriceFilter() {
 
 	const handleSliderValueChange = (values: number[]) => {
 		const [min, max] = values as [number, number]
-		setTempValues([min, max])
-		setIsSliderDragging(true)
+		setLocalValues([min, max])
 	}
 
 	const handleSliderCommit = () => {
-		if (isSliderDragging) {
-			setLocalValues(tempValues)
-			setPriceRange(tempValues[0].toString(), tempValues[1].toString())
-			setIsSliderDragging(false)
-		}
+		setPendingValues([...localValues])
+		setPriceRange(localValues[0].toString(), localValues[1].toString())
 	}
 
 	const formatForInput = (value: number): string => {
@@ -93,7 +92,7 @@ export default function PriceFilter() {
 					</FieldDescription>
 
 					<Slider
-						value={isSliderDragging ? tempValues : localValues}
+						value={localValues}
 						onValueChange={handleSliderValueChange}
 						onValueCommit={handleSliderCommit}
 						max={10000}

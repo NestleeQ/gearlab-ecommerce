@@ -1,11 +1,14 @@
+'use client'
 import PageContainer from '@/components/layout/PageContainer/PageContainer'
 import { Button } from '@/components/ui/Button/Button'
 import Text from '@/components/ui/Text/Text'
 import Title from '@/components/ui/Title/Title'
 import { MoveRight } from 'lucide-react'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 
 export default function CategoriesCTA() {
+	const router = useRouter()
 	return (
 		<div className='min-h-76 mt-42 bg-linear-to-r from-neutral-light-100 to-neutral-light-900'>
 			<PageContainer className='mt-13 flex justify-between items-center'>
@@ -24,6 +27,7 @@ export default function CategoriesCTA() {
 						variant='default'
 						size='lg'
 						className='mt-8 font-medium rounded-sm'
+						onClick={() => router.push('/products')}
 					>
 						Start Browsing {''} <MoveRight />
 					</Button>

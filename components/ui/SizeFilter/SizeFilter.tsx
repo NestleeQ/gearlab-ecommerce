@@ -5,7 +5,7 @@ import Text from '../Text/Text'
 import { ToggleGroup, ToggleGroupItem } from '../ToggleGroup/ToggleGroup'
 
 export default function SizeFilter() {
-	const { params, toggleArrayParam } = useQueryParams()
+	const { params, updateQueryParams } = useQueryParams()
 	const selectedSize = params.size
 
 	return (
@@ -15,20 +15,13 @@ export default function SizeFilter() {
 				<ToggleGroup
 					type='multiple'
 					className='flex flex-wrap space-x-2.5 space-y-2.5'
+					value={selectedSize}
 					onValueChange={values => {
-						const params = new URLSearchParams(
-							window.location.search
-						)
 						if (values.length > 0) {
-							params.set('size', values.join(','))
+							updateQueryParams({ size: values })
 						} else {
-							params.delete('size')
+							updateQueryParams({ size: null })
 						}
-						window.history.replaceState(
-							{},
-							'',
-							`?${params.toString()}`
-						)
 					}}
 				>
 					{productSizes.map(elem => {
@@ -44,9 +37,6 @@ export default function SizeFilter() {
 											selectedSize.includes(elem.size)
 									}
 								)}
-								onClick={() =>
-									toggleArrayParam('size', elem.size)
-								}
 							>
 								{elem.size.toUpperCase()}
 							</ToggleGroupItem>
