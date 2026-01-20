@@ -1,4 +1,4 @@
-import { categoriesList } from '@/app/data/categories.data'
+import { categoriesList } from '@/data/categories.data'
 import { useQueryParams } from '@/hooks/useQueryParams'
 import { Checkbox } from '../Checkbox/Checkbox'
 import Text from '../Text/Text'

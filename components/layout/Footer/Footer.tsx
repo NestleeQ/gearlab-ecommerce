@@ -1,12 +1,12 @@
+import List from '@/components/ui/List/List'
+import Logo from '@/components/ui/Logo/Logo'
+import Text from '@/components/ui/Text/Text'
 import {
 	acceptedPaymentsLinks,
 	companyLinks,
 	shopLinks,
 	supportLinks
-} from '@/app/data/footer-links.data'
-import List from '@/components/ui/List/List'
-import Logo from '@/components/ui/Logo/Logo'
-import Text from '@/components/ui/Text/Text'
+} from '@/data/footer-links.data'
 import Link from 'next/link'
 
 export default function Footer() {

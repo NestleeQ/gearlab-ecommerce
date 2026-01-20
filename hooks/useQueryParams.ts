@@ -12,7 +12,8 @@ export function useQueryParams() {
 			color: searchParams.get('color')?.split(',') || [],
 			size: searchParams.get('size')?.split(',') || [],
 			price_min: searchParams.get('price_min') || '',
-			price_max: searchParams.get('price_max') || ''
+			price_max: searchParams.get('price_max') || '',
+			page: searchParams.get('page') || '1'
 		}
 	}, [searchParams])
 
@@ -38,6 +39,12 @@ export function useQueryParams() {
 		},
 		[pathname, router, searchParams]
 	)
+
+	const setPage = (page: number) => {
+		const newParams = new URLSearchParams(searchParams)
+		newParams.set('page', page.toString())
+		router.replace(`${pathname}?${newParams.toString()}`)
+	}
 
 	const toggleArrayParam = useCallback(
 		(key: 'category' | 'color' | 'size', value: string) => {
@@ -71,14 +78,12 @@ export function useQueryParams() {
 		})
 	}, [updateQueryParams])
 
-	// Обновленный removeFilter с поддержкой удаления конкретного элемента массива
 	const removeFilter = useCallback(
 		(
 			key: 'category' | 'color' | 'size' | 'price_min' | 'price_max',
 			valueToRemove?: string
 		) => {
 			if (key === 'price_min' || key === 'price_max') {
-				// Для цен удаляем оба параметра сразу
 				updateQueryParams({
 					price_min: null,
 					price_max: null
@@ -87,12 +92,10 @@ export function useQueryParams() {
 				valueToRemove &&
 				['category', 'color', 'size'].includes(key)
 			) {
-				// Удаляем конкретный элемент из массива
 				const current = params[key]
 				const newValues = current.filter(v => v !== valueToRemove)
 				updateQueryParams({ [key]: newValues })
 			} else {
-				// Удалить весь фильтр
 				updateQueryParams({ [key]: null })
 			}
 		},
@@ -133,6 +136,7 @@ export function useQueryParams() {
 		setPriceRange,
 		resetFilters,
 		removeFilter,
-		clearFilters
+		clearFilters,
+		setPage
 	}
 }

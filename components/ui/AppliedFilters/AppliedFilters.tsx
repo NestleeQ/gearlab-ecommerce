@@ -1,5 +1,6 @@
 'use client'
 import { useQueryParams } from '@/hooks/useQueryParams'
+import { formatPrice } from '@/lib/utils'
 import { X } from 'lucide-react'
 import { Badge } from '../Badge/Badge'
 import { Button } from '../Button/Button'
@@ -8,8 +9,14 @@ export default function AppliedFilters() {
 	const { allParams, removeFilter, clearFilters, updateQueryParams } =
 		useQueryParams()
 
-	const hasFilters = Object.keys(allParams).some(key => {
-		const value = allParams[key]
+	const excludedKeys = ['page']
+
+	const filteredParams = Object.fromEntries(
+		Object.entries(allParams).filter(([key]) => !excludedKeys.includes(key))
+	)
+
+	const hasFilters = Object.keys(filteredParams).some(key => {
+		const value = filteredParams[key]
 		return value !== undefined && value !== '' && value !== '0'
 	})
 
@@ -57,7 +64,7 @@ export default function AppliedFilters() {
 				</button>
 			</div>
 			<div className='flex flex-wrap gap-2'>
-				{Object.entries(allParams).map(([key, value]) => {
+				{Object.entries(filteredParams).map(([key, value]) => {
 					if (!value || value === '' || value === '0') return null
 
 					if (key === 'price_min' && allParams.price_max) {
@@ -71,15 +78,16 @@ export default function AppliedFilters() {
 									className='inline-flex items-center gap-1 text-neutral-900 px-3 text-body font-normal'
 								>
 									<span>
-										Price: ${min.toLocaleString()} - $
-										{max.toLocaleString()}
+										Price: {formatPrice(min)} -{' '}
+										{formatPrice(max)}
 									</span>
 									<Button
 										variant='ghost'
 										size='sm'
-										onClick={() =>
+										onClick={() => {
 											removeFilter('price_min')
-										}
+											removeFilter('price_max')
+										}}
 										className='ml-1 text-neutral-500'
 									>
 										<X size={19} />

@@ -1,12 +1,13 @@
-import { productSizes } from '@/app/data/products.data'
 import { useQueryParams } from '@/hooks/useQueryParams'
 import { cn } from '@/lib/utils'
+import { getSizeOptions } from '@/services/products'
 import Text from '../Text/Text'
 import { ToggleGroup, ToggleGroupItem } from '../ToggleGroup/ToggleGroup'
 
 export default function SizeFilter() {
 	const { params, updateQueryParams } = useQueryParams()
-	const selectedSize = params.size
+	const selectedSizes = params.size
+	const sizeOptions = getSizeOptions()
 
 	return (
 		<>
@@ -14,8 +15,8 @@ export default function SizeFilter() {
 			<div className='mt-4'>
 				<ToggleGroup
 					type='multiple'
-					className='flex flex-wrap space-x-2.5 space-y-2.5'
-					value={selectedSize}
+					className='flex flex-wrap space-x-2.5'
+					value={selectedSizes}
 					onValueChange={values => {
 						if (values.length > 0) {
 							updateQueryParams({ size: values })
@@ -24,21 +25,23 @@ export default function SizeFilter() {
 						}
 					}}
 				>
-					{productSizes.map(elem => {
+					{sizeOptions.map(elem => {
+						const isSelected = selectedSizes.includes(elem.value)
 						return (
 							<ToggleGroupItem
-								key={elem.id}
-								value={elem.size}
+								key={elem.value}
+								value={elem.value}
 								variant='outline'
 								className={cn(
 									'rounded-sm border hover:border hover:border-1.7 hover:border-neutral-900',
 									{
 										'border border-1.7 border-neutral-900':
-											selectedSize.includes(elem.size)
+											isSelected
 									}
 								)}
+								aria-label={`Size ${elem.label}`}
 							>
-								{elem.size.toUpperCase()}
+								{elem.label.toUpperCase()}
 							</ToggleGroupItem>
 						)
 					})}

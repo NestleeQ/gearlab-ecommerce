@@ -1,4 +1,4 @@
-import { productsFeatured } from '@/app/data/products.data'
+'use client'
 import PageContainer from '@/components/layout/PageContainer/PageContainer'
 import ProductCard from '@/components/ui/ProductCard/ProductCard'
 import {
@@ -7,8 +7,24 @@ import {
 	TabsList,
 	TabsTrigger
 } from '@/components/ui/Tabs/Tabs'
+import {
+	getNewProducts,
+	getPopularProducts,
+	iProduct
+} from '@/services/products'
+import { useEffect, useState } from 'react'
 
 export default function ProductList() {
+	const [popularProducts, setPopularProducts] = useState<iProduct[] | null>(
+		[]
+	)
+	const [newProducts, setNewProducts] = useState<iProduct[]>([])
+
+	useEffect(() => {
+		getPopularProducts(4).then(setPopularProducts)
+		getNewProducts(4).then(setNewProducts)
+	}, [])
+
 	return (
 		<PageContainer className='mt-38'>
 			<Tabs
@@ -23,31 +39,30 @@ export default function ProductList() {
 					value='featured'
 					className='flex mt-12 space-x-8'
 				>
-					{productsFeatured.map(elem => {
-						return (
-							<ProductCard
-								key={elem.id}
-								id={elem.id}
-								slug={elem.slug}
-								imagePath={elem.imagePath}
-								title={elem.title}
-								status={elem.status}
-								price={elem.price}
-							/>
-						)
-					})}
+					{popularProducts &&
+						popularProducts.map(elem => {
+							return (
+								<ProductCard
+									key={elem.id}
+									slug={elem.slug}
+									images={elem.images}
+									title={elem.title}
+									status={elem.status}
+									price={elem.price}
+								/>
+							)
+						})}
 				</TabsContent>
 				<TabsContent
 					value='latest'
 					className='flex mt-12 space-x-8'
 				>
-					{productsFeatured.map(elem => {
+					{newProducts.map(elem => {
 						return (
 							<ProductCard
 								key={elem.id}
-								id={elem.id}
 								slug={elem.slug}
-								imagePath={elem.imagePath}
+								images={elem.images}
 								title={elem.title}
 								status={elem.status}
 								price={elem.price}

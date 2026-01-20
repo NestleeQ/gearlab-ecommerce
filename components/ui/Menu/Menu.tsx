@@ -1,11 +1,11 @@
 'use client'
-import { categoriesList } from '@/app/data/categories.data'
 import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
 	DropdownMenuTrigger
 } from '@/components/ui/DropdownMenu/DropdownMenu'
+import { categoriesList } from '@/data/categories.data'
 import { ChevronDown, ChevronUp } from 'lucide-react'
 import Link from 'next/link'
 import { useState } from 'react'

@@ -1,4 +1,4 @@
-import { iLink } from '@/app/data/footer-links.data'
+import { iLink } from '@/data/footer-links.data'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
 import Link from 'next/link'

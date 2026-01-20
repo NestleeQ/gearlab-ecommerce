@@ -1,4 +1,4 @@
-import { productColors } from '@/app/data/products.data'
+import { productColors } from '@/data/products.data'
 import { useQueryParams } from '@/hooks/useQueryParams'
 import { cn } from '@/lib/utils'
 import Text from '../Text/Text'

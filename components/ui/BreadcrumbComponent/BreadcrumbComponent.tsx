@@ -1,6 +1,5 @@
 'use client'
 import PageContainer from '@/components/layout/PageContainer/PageContainer'
-import { cn } from '@/lib/utils'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Fragment } from 'react/jsx-runtime'
@@ -9,16 +8,22 @@ import {
 	BreadcrumbItem,
 	BreadcrumbLink,
 	BreadcrumbList,
+	BreadcrumbPage,
 	BreadcrumbSeparator
 } from '../Breadcrumb/Breadcrumb'
 
 export default function BreadcrumbComponent() {
 	const paths = usePathname()
 	const pathNames = paths.split('/').filter(path => path)
-	const pathItems = pathNames.map((path, i) => ({
-		name: path[0].toUpperCase() + path.slice(1, path.length),
-		path: pathNames.slice(0, i + 1).join('/')
-	}))
+
+	const getPath = (index: number) => {
+		return '/' + pathNames.slice(0, index + 1).join('/')
+	}
+
+	const formatName = (path: string) => {
+		const withSpaces = path.replace(/-/g, ' ')
+		return withSpaces.charAt(0).toUpperCase() + withSpaces.slice(1)
+	}
 
 	return (
 		<PageContainer>
@@ -29,26 +34,28 @@ export default function BreadcrumbComponent() {
 							<Link href='/'>Home</Link>
 						</BreadcrumbLink>
 					</BreadcrumbItem>
-					<BreadcrumbSeparator />
-					{pathItems.map((elem, idx) => {
+					{pathNames.length > 0 && <BreadcrumbSeparator />}
+					{pathNames.map((path, idx) => {
+						const isLast = idx === pathNames.length - 1
+						const href = getPath(idx)
+						const displayName = formatName(path)
+
 						return (
-							<Fragment key={elem.name}>
+							<Fragment key={`${path}-${idx}`}>
 								<BreadcrumbItem>
-									<BreadcrumbLink asChild>
-										<Link
-											href={elem.path}
-											className={cn({
-												'text-neutral-900':
-													idx == pathItems.length - 1
-											})}
-										>
-											{elem.name}
-										</Link>
-									</BreadcrumbLink>
+									{isLast ? (
+										<BreadcrumbPage className='text-neutral-900 font-medium'>
+											{displayName}
+										</BreadcrumbPage>
+									) : (
+										<BreadcrumbLink asChild>
+											<Link href={href}>
+												{displayName}
+											</Link>
+										</BreadcrumbLink>
+									)}
 								</BreadcrumbItem>
-								{idx < pathNames.length - 1 && (
-									<BreadcrumbSeparator />
-								)}
+								{!isLast && <BreadcrumbSeparator />}
 							</Fragment>
 						)
 					})}

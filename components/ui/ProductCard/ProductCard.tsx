@@ -1,6 +1,5 @@
 'use client'
-import { iProducts } from '@/app/data/products.data'
-import { cn, convertPrice } from '@/lib/utils'
+import { cn, formatPrice } from '@/lib/utils'
 import { CirclePlus, Heart } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -8,19 +7,26 @@ import { useState } from 'react'
 import { Button } from '../Button/Button'
 import ProductStatus from '../ProductStatus/ProductStatus'
 
-interface iProductCard extends iProducts {
+interface iProductCard {
+	slug: string
+	images: string[]
+	title: string
+	status: boolean
+	price: number
+}
+
+interface iProductClass extends iProductCard {
 	className?: string
 }
 
 export default function ProductCard({
 	className,
-	id,
 	slug,
-	imagePath,
+	images,
 	title,
 	status,
 	price
-}: iProductCard) {
+}: iProductClass) {
 	const [isHover, setIsHover] = useState<boolean>(false)
 
 	return (
@@ -31,7 +37,7 @@ export default function ProductCard({
 				onMouseLeave={() => setIsHover(false)}
 			>
 				<Image
-					src={imagePath}
+					src={images[0]}
 					alt={`${title}_cover`}
 					width={237}
 					height={312}
@@ -65,7 +71,7 @@ export default function ProductCard({
 				<div className='flex mt-3'>
 					<ProductStatus status={status} />
 					<p className='text-heading-h5 text-neutral-600 ml-4'>
-						{convertPrice(2, () => price / 100)}
+						{formatPrice(price)}
 					</p>
 				</div>
 			</div>
