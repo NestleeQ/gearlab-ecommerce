@@ -30,7 +30,7 @@ export default function ProductCard({
 	const [isHover, setIsHover] = useState<boolean>(false)
 
 	return (
-		<div className={cn('max-w-66 max-h-109', className)}>
+		<div className={cn('max-w-63 max-h-109', className)}>
 			<div
 				className={'relative'}
 				onMouseEnter={() => setIsHover(true)}
@@ -39,10 +39,10 @@ export default function ProductCard({
 				<Image
 					src={images[0]}
 					alt={`${title}_cover`}
-					width={237}
+					width={228}
 					height={312}
 					className={cn(
-						'rounded-sm',
+						'rounded-sm max-h-75',
 						isHover ? 'opacity-50' : 'opacity-100'
 					)}
 				/>

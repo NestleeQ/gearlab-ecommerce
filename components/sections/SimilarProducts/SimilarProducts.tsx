@@ -2,25 +2,25 @@
 import PageContainer from '@/components/layout/PageContainer/PageContainer'
 import ProductCard from '@/components/ui/ProductCard/ProductCard'
 import Title from '@/components/ui/Title/Title'
-import { getBestSellers, iProduct } from '@/services/products'
+import { getSimilarProducts, iProduct } from '@/services/products'
 import { useEffect, useState } from 'react'
 
-export default function BestSellingSection() {
-	const [bestSellers, setBestSellers] = useState<iProduct[]>([])
+export default function SimilarProducts({ product }: { product: iProduct }) {
+	const [similarProducts, setSimilarProducts] = useState<iProduct[]>([])
 
 	useEffect(() => {
-		getBestSellers(4).then(setBestSellers)
-	}, [])
+		getSimilarProducts(product, 4).then(setSimilarProducts)
+	}, [product])
 
 	return (
 		<PageContainer className='mt-42'>
 			<div className='text-center'>
-				<p className='text-label text-neutral-300'>SHOP NOW</p>
-				<Title>Best Selling</Title>
+				<Title>You might also like</Title>
+				<p className='text-label text-neutral-300'>SIMILAR PRODUCTS</p>
 			</div>
 			<div className='flex justify-center items-center mt-20 space-x-10'>
-				{bestSellers &&
-					bestSellers.map(elem => {
+				{similarProducts &&
+					similarProducts.map(elem => {
 						return (
 							<ProductCard
 								key={elem.id}

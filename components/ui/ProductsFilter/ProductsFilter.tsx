@@ -6,7 +6,7 @@ import SizeFilter from '../SizeFilter/SizeFilter'
 
 export default function ProductsFilter() {
 	return (
-		<div className='border border-neutral-100 rounded-sm max-w-62 max-h-max py-5 px-4.5 pb-8'>
+		<div className='border border-neutral-100 rounded-sm max-w-59 max-h-max py-5 px-4.5 pb-8'>
 			<CategoryFilter />
 			<div className='mt-10'>
 				<ColorFilter />

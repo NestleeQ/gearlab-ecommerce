@@ -7,7 +7,7 @@ interface iPageContainer {
 
 export default function PageContainer({ className, children }: iPageContainer) {
 	return (
-		<section className={cn('container mx-auto', className)}>
+		<section className={cn('container-custom', className)}>
 			{children}
 		</section>
 	)

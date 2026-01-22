@@ -12,15 +12,27 @@ import {
 	iProduct,
 	sortProducts
 } from '@/services/products'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+
+interface iProductsData {
+	products: iProduct[]
+	total: number
+}
 
 export default function CatalogSection() {
 	const { params, clearFilters, setPage } = useQueryParams()
-	const [products, setProducts] = useState<iProduct[]>([])
+	const [productsData, setProductsData] = useState<iProductsData>({
+		products: [],
+		total: 0
+	})
 	const [loading, setLoading] = useState<boolean>(true)
 	const [sortBy, setSortBy] = useState<SortOption>('relevance')
+
+	const [targetPage, setTargetPage] = useState<number>(1)
 	const currentPage = parseInt(params.page) || 1
-	const itemsPerPage = 10
+	const itemsPerPage = 8
+
+	const abortControllerRef = useRef<AbortController | null>(null)
 
 	const filters = useMemo(
 		() => ({
@@ -29,38 +41,59 @@ export default function CatalogSection() {
 			size: params.size.length > 0 ? params.size : undefined,
 			minPrice: params.price_min ? parseInt(params.price_min) : undefined,
 			maxPrice: params.price_max ? parseInt(params.price_max) : undefined,
-			page: currentPage
+			page: currentPage,
+			limit: itemsPerPage
 		}),
 		[params, currentPage]
 	)
 
 	useEffect(() => {
+		setTargetPage(currentPage)
+	}, [currentPage])
+
+	useEffect(() => {
 		const loadFilteredProducts = async () => {
+			if (abortControllerRef.current) {
+				abortControllerRef.current.abort()
+			}
+
+			abortControllerRef.current = new AbortController()
+			const requestPage = filters.page
+
 			setLoading(true)
-			setProducts([])
 
 			try {
 				const filteredProducts = await getFilteredProducts(filters)
-				setProducts(filteredProducts)
+
+				if (
+					requestPage === currentPage &&
+					!abortControllerRef.current.signal.aborted
+				) {
+					setProductsData(filteredProducts)
+				}
 			} catch (error) {
-				console.error('Error loading products: ', error)
+				if (error.name !== 'AbortError') {
+					console.error('Error loading products: ', error)
+				}
 			} finally {
-				setLoading(false)
+				if (!abortControllerRef.current.signal.aborted) {
+					setLoading(false)
+				}
 			}
 		}
 
 		loadFilteredProducts()
-	}, [filters])
+
+		return () => {
+			if (abortControllerRef.current) {
+				abortControllerRef.current.abort()
+			}
+		}
+	}, [filters, currentPage])
 
 	const sortedProducts = useMemo(() => {
-		return sortProducts([...products], sortBy)
-	}, [products, sortBy])
-
-	const paginatedProducts = useMemo(() => {
-		const startIndex = (currentPage - 1) * itemsPerPage
-		const endIndex = startIndex + itemsPerPage
-		return sortedProducts.slice(startIndex, endIndex)
-	}, [sortedProducts, currentPage, itemsPerPage])
+		return sortProducts([...productsData.products], sortBy)
+	}, [productsData.products, sortBy])
 
 	const handleSortChange = useCallback((value: string) => {
 		setSortBy(value as SortOption)
@@ -68,17 +101,20 @@ export default function CatalogSection() {
 
 	const handlePageChange = useCallback(
 		(page: number) => {
+			setTargetPage(page)
+			setLoading(true)
+			setProductsData({ products: [], total: 0 })
 			setPage(page)
 			window.scrollTo({ top: 0, behavior: 'smooth' })
 		},
 		[setPage]
 	)
 
-	if (loading && products.length === 0) {
+	if (loading || targetPage !== currentPage) {
 		return <CatalogSkeleton />
 	}
 
-	if (!loading && sortedProducts.length === 0) {
+	if (productsData.products.length === 0) {
 		return <CatalogEmptyState onClearFilters={clearFilters} />
 	}
 
@@ -87,19 +123,16 @@ export default function CatalogSection() {
 			<div className='flex justify-between items-center'>
 				<Text className='text-label font-medium'>
 					Showing {(currentPage - 1) * itemsPerPage + 1}-
-					{Math.min(
-						currentPage * itemsPerPage,
-						sortedProducts.length
-					)}{' '}
-					of {sortedProducts.length} Results.
+					{Math.min(currentPage * itemsPerPage, productsData.total)}{' '}
+					of {productsData.total} Results.
 				</Text>
 				<SortSelect
 					sortBy={sortBy}
 					handleSortChange={handleSortChange}
 				/>
 			</div>
-			<div className='mt-4 flex flex-wrap gap-4.5 space-y-8'>
-				{paginatedProducts.map(elem => {
+			<div className='mt-4 flex flex-wrap gap-3 space-y-8'>
+				{sortedProducts.map(elem => {
 					return (
 						<ProductCard
 							key={elem.id}
@@ -111,13 +144,13 @@ export default function CatalogSection() {
 						/>
 					)
 				})}
-				<PaginationComponent
-					currentPage={currentPage}
-					totalItems={sortedProducts.length}
-					itemsPerPage={itemsPerPage}
-					onPageChange={handlePageChange}
-				/>
 			</div>
+			<PaginationComponent
+				currentPage={currentPage}
+				totalItems={productsData.total}
+				itemsPerPage={itemsPerPage}
+				onPageChange={handlePageChange}
+			/>
 		</div>
 	)
 }

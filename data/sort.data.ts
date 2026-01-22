@@ -14,3 +14,19 @@ export const sortOptions: Array<{ value: SortOption; label: string }> = [
 	{ value: 'price-desc', label: 'Price: High to Low' },
 	{ value: 'rating', label: 'Rating' }
 ]
+
+export type ReviewSortOption =
+	| 'newest'
+	| 'oldest'
+	| 'highest-rating'
+	| 'lowest-rating'
+
+export const reviewSortOptions: Array<{
+	value: ReviewSortOption
+	label: string
+}> = [
+	{ value: 'newest', label: 'Newest First' },
+	{ value: 'oldest', label: 'Oldest First' },
+	{ value: 'highest-rating', label: 'Highest Rating' },
+	{ value: 'lowest-rating', label: 'Lowest Rating' }
+]

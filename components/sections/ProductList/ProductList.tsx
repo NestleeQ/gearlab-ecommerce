@@ -37,7 +37,7 @@ export default function ProductList() {
 				</TabsList>
 				<TabsContent
 					value='featured'
-					className='flex mt-12 space-x-8'
+					className='flex mt-12 space-x-10'
 				>
 					{popularProducts &&
 						popularProducts.map(elem => {
@@ -55,7 +55,7 @@ export default function ProductList() {
 				</TabsContent>
 				<TabsContent
 					value='latest'
-					className='flex mt-12 space-x-8'
+					className='flex mt-12 space-x-10'
 				>
 					{newProducts.map(elem => {
 						return (

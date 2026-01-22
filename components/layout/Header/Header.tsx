@@ -6,7 +6,7 @@ import Link from 'next/link'
 
 export default function Header() {
 	return (
-		<header className='container mx-auto min-h-21 flex justify-between items-center'>
+		<header className='container-custom min-h-21 flex justify-between items-center'>
 			<Logo />
 			<Menu />
 			<div className='flex items-center'>

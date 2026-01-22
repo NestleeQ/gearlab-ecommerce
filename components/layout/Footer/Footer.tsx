@@ -12,7 +12,7 @@ import Link from 'next/link'
 export default function Footer() {
 	return (
 		<footer className='bg-neutral-light-100 mt-48 pt-22 pb-6'>
-			<div className='container mx-auto flex flex-col'>
+			<div className='container-custom flex flex-col'>
 				<div className='flex justify-between'>
 					<div>
 						<Logo position='f' />

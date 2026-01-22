@@ -11,7 +11,7 @@ export interface iProduct {
 	price: number
 	status: boolean
 	category: string
-	color: string
+	color: string[]
 	size: Size[]
 	rating: number
 	reviewCount: number
@@ -51,6 +51,43 @@ export async function getPopularProducts(
 		.slice(0, limit)
 }
 
+export async function getSimilarProducts(
+	currentProduct: iProduct,
+	limit: number = 4
+): Promise<iProduct[]> {
+	if (!currentProduct) {
+		return getRandomProducts(limit)
+	}
+
+	const sameCategory = products.filter(
+		product =>
+			product.id !== currentProduct.id &&
+			product.category === currentProduct.category
+	)
+
+	if (sameCategory.length >= limit) {
+		return sameCategory.sort((a, b) => a.price - b.price).slice(0, limit)
+	}
+
+	const otherProducts = products.filter(
+		product =>
+			product.id !== currentProduct.id &&
+			product.category !== currentProduct.category
+	)
+
+	const needed = limit - sameCategory.length
+	const fromOther = otherProducts
+		.sort((a, b) => a.price - b.price)
+		.slice(0, needed)
+
+	return [...sameCategory, ...fromOther]
+}
+
+function getRandomProducts(count: number): iProduct[] {
+	const shuffled = [...products].sort(() => Math.random() - 0.5)
+	return shuffled.slice(0, count)
+}
+
 export async function getNewProducts(limit = 4): Promise<iProduct[]> {
 	return products
 		.filter(p => p.isNew)
@@ -62,15 +99,21 @@ export async function getNewProducts(limit = 4): Promise<iProduct[]> {
 		.slice(0, limit)
 }
 
+export interface FilteredProductsResult {
+	products: iProduct[]
+	total: number
+}
+
 export async function getFilteredProducts(filters?: {
 	category?: string[]
 	color?: string[]
 	size?: string[]
 	minPrice?: number
 	maxPrice?: number
+	page?: number
 	limit?: number
-}): Promise<iProduct[]> {
-	if (!filters) return products
+}): Promise<FilteredProductsResult> {
+	if (!filters) return { products, total: products.length }
 
 	let filtered = [...products]
 
@@ -82,7 +125,7 @@ export async function getFilteredProducts(filters?: {
 
 	if (filters.color && filters.color.length > 0) {
 		filtered = filtered.filter(product =>
-			filters.color!.includes(product.color)
+			product.color.some(color => filters.color!.includes(color))
 		)
 	}
 
@@ -104,11 +147,17 @@ export async function getFilteredProducts(filters?: {
 		)
 	}
 
-	if (filters.limit !== undefined) {
+	const total = filtered.length
+
+	if (filters.page !== undefined && filters.limit !== undefined) {
+		const startIndex = (filters.page - 1) * filters.limit
+		const endIndex = startIndex + filters.limit
+		filtered = filtered.slice(startIndex, endIndex)
+	} else if (filters.limit !== undefined) {
 		filtered = filtered.slice(0, filters.limit)
 	}
 
-	return filtered
+	return { products: filtered, total }
 }
 
 export function sortProducts(
@@ -138,27 +187,16 @@ export function sortProducts(
 	}
 }
 
-export function getSizeOptions(): Array<{
-	value: string
-	label: string
-	count: number
-}> {
-	const sizeMap = new Map<string, number>()
+export function getSizeOptions(): Array<string> {
+	const availableSize: string[] = []
 
 	products.forEach(product => {
 		product.size.forEach(size => {
-			const count = sizeMap.get(size) || 0
-			sizeMap.set(size, count + 1)
+			availableSize.push(size)
 		})
 	})
 
 	const sizeOrder = ['XS', 'S', 'M', 'L', 'XL', 'XXL']
 
-	return sizeOrder
-		.filter(size => sizeMap.has(size))
-		.map(size => ({
-			value: size,
-			label: size,
-			count: sizeMap.get(size) || 0
-		}))
+	return sizeOrder.filter(size => availableSize.includes(size))
 }

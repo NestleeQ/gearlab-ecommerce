@@ -8,7 +8,9 @@ export default function Products() {
 	return (
 		<div>
 			<div className='bg-neutral-light-100 py-6'>
-				<BreadcrumbComponent />
+				<PageContainer>
+					<BreadcrumbComponent />
+				</PageContainer>
 			</div>
 			<PageContainer className='mt-8 flex justify-between'>
 				<ProductsFilter />
