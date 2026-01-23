@@ -73,6 +73,7 @@ export default async function ProductPage({
 								rating={product.rating}
 								reviewCount={product.reviewCount}
 								reviews={reviews}
+								productId={product.id}
 							/>
 						</div>
 						<SimilarProducts product={product} />

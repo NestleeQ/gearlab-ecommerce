@@ -1,22 +1,30 @@
 'use client'
 import { ReviewSortOption } from '@/data/sort.data'
+import { cn } from '@/lib/utils'
 import { iReview, sortReviews } from '@/services/reviews'
 import { useMemo, useState } from 'react'
 import { Button } from '../Button/Button'
 import ReviewCard from '../ReviewCard/ReviewCard'
+import ReviewDialog from '../ReviewDialog/ReviewDialog'
 import ReviewSortSelect from '../ReviewSortSelect/ReviewSortSelect'
 
 interface ReviewsListProps {
 	reviews: iReview[]
+	productId: number
 	initialDisplay?: number
+	className?: string
 }
 
 export default function ReviewsList({
-	reviews,
-	initialDisplay = 3
+	reviews: initialReviews,
+	productId,
+	initialDisplay = 3,
+	className
 }: ReviewsListProps) {
+	const [reviews, setReviews] = useState<iReview[]>(initialReviews)
 	const [displayCount, setDisplayCount] = useState(initialDisplay)
 	const [sortBy, setSortBy] = useState<ReviewSortOption>('newest')
+	const [isDialogOpen, setIsDialogOpen] = useState(false)
 
 	const sortedReviews = useMemo(() => {
 		return sortReviews(reviews, sortBy)
@@ -34,20 +42,58 @@ export default function ReviewsList({
 		setDisplayCount(initialDisplay)
 	}
 
+	const handleSubmitReview = (
+		newReview: Omit<iReview, 'id' | 'createdAt'>
+	) => {
+		const review: iReview = {
+			...newReview,
+			id: Date.now(),
+			createdAt: new Date().toISOString()
+		}
+
+		setReviews(prev => [review, ...prev])
+
+		setSortBy('newest')
+		setDisplayCount(initialDisplay)
+	}
+
 	if (reviews.length === 0) {
 		return (
-			<div className='flex flex-col items-center justify-center py-12'>
-				<p className='text-neutral-500'>No reviews yet</p>
-				<p className='mt-2 text-sm text-neutral-400'>
-					Be the first to review this product
-				</p>
-			</div>
+			<>
+				<div className='flex flex-col items-center justify-center py-12'>
+					<p className='text-neutral-500'>No reviews yet</p>
+					<p className='mt-2 text-sm text-neutral-400'>
+						Be the first to review this product
+					</p>
+					<Button
+						variant='outline'
+						onClick={() => setIsDialogOpen(true)}
+						className='mt-4'
+					>
+						Write a review
+					</Button>
+				</div>
+				<ReviewDialog
+					open={isDialogOpen}
+					onOpenChange={setIsDialogOpen}
+					onSubmit={handleSubmitReview}
+					productId={productId}
+				/>
+			</>
 		)
 	}
 
 	return (
-		<div className='flex flex-col'>
-			<div className='flex items-center justify-end border-b border-neutral-light-100 pb-6'>
+		<div className={cn('flex flex-col', className)}>
+			<div className='flex items-center justify-between border-b border-neutral-light-100 pb-6'>
+				<Button
+					variant='outline'
+					size='lg'
+					className='min-w-32 font-medium'
+					onClick={() => setIsDialogOpen(true)}
+				>
+					Write a review
+				</Button>
 				<ReviewSortSelect
 					sortBy={sortBy}
 					onSortChange={handleSortChange}
@@ -72,6 +118,12 @@ export default function ReviewsList({
 					</Button>
 				</div>
 			)}
+			<ReviewDialog
+				open={isDialogOpen}
+				onOpenChange={setIsDialogOpen}
+				onSubmit={handleSubmitReview}
+				productId={productId}
+			/>
 		</div>
 	)
 }

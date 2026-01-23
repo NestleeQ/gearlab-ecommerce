@@ -1,7 +1,7 @@
-import ReviewsList from '@/components/ui/ReviewList/ReviewList'
 import ReviewProduct from '@/components/ui/ReviewProduct/ReviewProduct'
 import { Tabs, TabsContent, TabsTrigger } from '@/components/ui/Tabs/Tabs'
 import Text from '@/components/ui/Text/Text'
+import { iReview } from '@/services/reviews'
 import { TabsList } from '@radix-ui/react-tabs'
 import { Ellipsis, Star } from 'lucide-react'
 
@@ -11,6 +11,7 @@ interface iProductDescription {
 	rating: number
 	reviewCount: number
 	reviews: iReview[]
+	productId: number
 }
 
 export default function ProductDescription({
@@ -18,7 +19,8 @@ export default function ProductDescription({
 	features,
 	rating,
 	reviewCount,
-	reviews
+	reviews,
+	productId
 }: iProductDescription) {
 	return (
 		<Tabs
@@ -74,11 +76,9 @@ export default function ProductDescription({
 							<ReviewProduct
 								rating={rating}
 								review={reviewCount}
-								className='mt-4 mb-'
-							/>
-							<ReviewsList
 								reviews={reviews}
-								initialDisplay={3}
+								productId={productId}
+								className='mt-4 mb-'
 							/>
 						</>
 					) : (
