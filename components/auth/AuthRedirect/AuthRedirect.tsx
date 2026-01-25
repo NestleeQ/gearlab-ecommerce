@@ -1,5 +1,4 @@
 'use client'
-import PageContainer from '@/components/layout/PageContainer/PageContainer'
 import { useAuth } from '@/context/AuthContext'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
@@ -13,23 +12,17 @@ export default function AuthRedirect({
 	children,
 	redirectTo = '/'
 }: AuthRedirectProps) {
-	const { isAuthenticated } = useAuth()
+	const { isAuthenticated, isLoading } = useAuth()
 	const router = useRouter()
 
 	useEffect(() => {
-		if (isAuthenticated) {
+		if (!isLoading && isAuthenticated) {
 			router.replace(redirectTo)
 		}
-	}, [isAuthenticated, router, redirectTo])
+	}, [isAuthenticated, isLoading, router, redirectTo])
 
-	if (isAuthenticated) {
-		return (
-			<PageContainer>
-				<div className='flex mt-32 items-center justify-center py-12'>
-					<div className='text-neutral-600'>Redirecting...</div>
-				</div>
-			</PageContainer>
-		)
+	if (isLoading || isAuthenticated) {
+		return null
 	}
 
 	return <>{children}</>

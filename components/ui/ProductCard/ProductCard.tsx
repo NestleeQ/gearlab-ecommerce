@@ -1,4 +1,5 @@
 'use client'
+import { useWishlist } from '@/context/WishListContext'
 import { useAddToCart } from '@/hooks/useAddToCart'
 import { cn, formatPrice } from '@/lib/utils'
 import { CirclePlus, Heart } from 'lucide-react'
@@ -36,6 +37,9 @@ export default function ProductCard({
 }: iProductClass) {
 	const [isHover, setIsHover] = useState<boolean>(false)
 	const { handleAddToCart } = useAddToCart()
+	const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist()
+
+	const inWishlist = isInWishlist(id)
 
 	const onAddToCart = () => {
 		handleAddToCart({
@@ -45,8 +49,23 @@ export default function ProductCard({
 			price,
 			image: images[0],
 			color,
-			size: size[0]
+			size: size[0],
+			quantity: 1
 		})
+	}
+
+	const handleWishlistClick = () => {
+		if (inWishlist) {
+			removeFromWishlist(id)
+		} else {
+			addToWishlist({
+				id,
+				slug,
+				title,
+				price,
+				image: images[0]
+			})
+		}
 	}
 
 	return (
@@ -70,8 +89,16 @@ export default function ProductCard({
 					<Button
 						variant='ghost'
 						className={'absolute top-0 right-0 mr-3 mt-2'}
+						onClick={handleWishlistClick}
 					>
-						<Heart className='size-5 stroke-neutral-500' />
+						<Heart
+							className={cn(
+								'size-5',
+								inWishlist
+									? 'fill-red-500 stroke-red-500'
+									: 'stroke-neutral-500'
+							)}
+						/>
 					</Button>
 					<Button
 						size='lg'

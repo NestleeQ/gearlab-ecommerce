@@ -9,6 +9,7 @@ interface AuthContextType extends iAuthState {
 	logout: () => void
 	resetPassword: (email: string, newPassword: string) => boolean
 	checkEmailExists: (email: string) => boolean
+	isLoading: boolean
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -16,6 +17,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined)
 export function AuthProvider({ children }: { children: React.ReactNode }) {
 	const [user, setUser] = useState<iUser | null>(null)
 	const [isAuthenticated, setIsAuthenticated] = useState(false)
+	const [isLoading, setIsLoading] = useState(true)
 
 	useEffect(() => {
 		const savedUser = localStorage.getItem('currentUser')
@@ -23,6 +25,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 			setUser(JSON.parse(savedUser))
 			setIsAuthenticated(true)
 		}
+		setIsLoading(false)
 	}, [])
 
 	const getUsers = (): iUser[] => {
@@ -103,6 +106,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 			value={{
 				user,
 				isAuthenticated,
+				isLoading,
 				login,
 				signup,
 				logout,

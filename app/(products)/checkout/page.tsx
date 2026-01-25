@@ -5,6 +5,7 @@ import OrderSummary from '@/components/ui/OrderSummary/OrderSummary'
 import PageTitleWide from '@/components/ui/PageTitleWide/PageTitleWide'
 import ThankYouScreen from '@/components/ui/ThankYouScreen/ThankYouScreen'
 import { useCart } from '@/context/CartContext'
+import { useOrders } from '@/context/OrderContext'
 import { useOrderTotals } from '@/hooks/useOrderTotals'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
@@ -21,6 +22,7 @@ export interface ShippingFormData {
 
 export default function CheckoutPage() {
 	const { items, clearCart } = useCart()
+	const { addOrder } = useOrders()
 	const { subtotal, shipping, tax, finalTotal } = useOrderTotals()
 	const router = useRouter()
 	const [orderPlaced, setOrderPlaced] = useState(false)
@@ -30,10 +32,20 @@ export default function CheckoutPage() {
 		return null
 	}
 
-	const handlePlaceOrder = (formData: ShippingFormData) => {
-		console.log('Order placed:', formData)
-		setOrderPlaced(true)
+	const handlePlaceOrder = () => {
+		items.forEach(item => {
+			addOrder({
+				productId: item.id,
+				productTitle: item.title,
+				productImage: item.image,
+				productSlug: item.slug,
+				price: item.price,
+				quantity: item.quantity
+			})
+		})
+
 		clearCart()
+		setOrderPlaced(true)
 	}
 
 	if (orderPlaced) {

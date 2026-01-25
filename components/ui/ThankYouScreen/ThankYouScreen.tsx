@@ -26,15 +26,25 @@ export default function ThankYouScreen() {
 						Your order has been successfully placed and is now being
 						processed.
 					</p>
-					<Link href='/products'>
-						<Button
-							className='min-w-48 rounded-sm'
-							size='lg'
-						>
-							Go to catalog
-							<span>→</span>
-						</Button>
-					</Link>
+					<div className='flex gap-4'>
+						<Link href='/products'>
+							<Button
+								className='min-w-48 rounded-sm'
+								size='lg'
+							>
+								Go to catalog
+								<span>→</span>
+							</Button>
+						</Link>
+						<Link href='/profile/orders'>
+							<Button
+								className='min-w-48 rounded-sm'
+								size='lg'
+							>
+								View Orders
+							</Button>
+						</Link>
+					</div>
 				</div>
 			</PageContainer>
 		</>

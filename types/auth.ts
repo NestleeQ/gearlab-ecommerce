@@ -9,3 +9,9 @@ export interface iAuthState {
 	user: iUser | null
 	isAuthenticated: boolean
 }
+
+export interface iLogin {
+	email: string
+	password: string
+	global?: string
+}
