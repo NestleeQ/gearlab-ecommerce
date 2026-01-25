@@ -2,7 +2,6 @@
 import CartIcon from '@/components/ui/CartIcon/CartIcon'
 import Logo from '@/components/ui/Logo/Logo'
 import Menu from '@/components/ui/Menu/Menu'
-import Search from '@/components/ui/Search/Search'
 import { useAuth } from '@/context/AuthContext'
 import { User } from 'lucide-react'
 import { useRouter } from 'next/navigation'
@@ -26,7 +25,6 @@ export default function Header() {
 			<Logo />
 			<Menu />
 			<div className='flex items-center'>
-				<Search />
 				<div className='flex items-center ml-8 space-x-6'>
 					<CartIcon />
 					<button
