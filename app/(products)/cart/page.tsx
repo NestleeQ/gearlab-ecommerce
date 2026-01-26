@@ -4,13 +4,15 @@ import { Button } from '@/components/ui/Button/Button'
 import CartItemCard from '@/components/ui/CartItemCard/CartItemCard'
 import PageTitleWide from '@/components/ui/PageTitleWide/PageTitleWide'
 import Text from '@/components/ui/Text/Text'
+import { useAuth } from '@/context/AuthContext'
 import { useCart } from '@/context/CartContext'
 import { useOrderTotals } from '@/hooks/useOrderTotals'
 import { formatPrice } from '@/lib/utils'
 import Link from 'next/link'
 
 export default function CartPage() {
-	const { items, total } = useCart()
+	const { items } = useCart()
+	const { isAuthenticated } = useAuth()
 	const { subtotal, shipping, tax, finalTotal } = useOrderTotals()
 
 	if (items.length == 0) {
@@ -91,14 +93,25 @@ export default function CartPage() {
 									</div>
 								</div>
 							</div>
-							<Link href='/checkout'>
-								<Button
-									className='mt-6 w-full rounded-sm'
-									size='lg'
-								>
-									Checkout
-								</Button>
-							</Link>
+							{isAuthenticated ? (
+								<Link href='/checkout'>
+									<Button
+										className='mt-6 w-full rounded-sm'
+										size='lg'
+									>
+										Checkout
+									</Button>
+								</Link>
+							) : (
+								<Link href='/login'>
+									<Button
+										className='mt-6 w-full rounded-sm'
+										size='lg'
+									>
+										Login
+									</Button>
+								</Link>
+							)}
 							<Link
 								href='/products'
 								className='block w-max mt-8 m-auto text-body font-medium text-neutral-900 underline cursor-pointer hover:text-neutral-500'

@@ -1,4 +1,5 @@
 'use client'
+import { useAuth } from '@/context/AuthContext'
 import { useWishlist } from '@/context/WishListContext'
 import { useAddToCart } from '@/hooks/useAddToCart'
 import { cn, formatPrice } from '@/lib/utils'
@@ -38,6 +39,7 @@ export default function ProductCard({
 	const [isHover, setIsHover] = useState<boolean>(false)
 	const { handleAddToCart } = useAddToCart()
 	const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist()
+	const { isAuthenticated } = useAuth()
 
 	const inWishlist = isInWishlist(id)
 
@@ -86,20 +88,22 @@ export default function ProductCard({
 					)}
 				/>
 				<div className={isHover ? 'opacity-100' : 'opacity-0'}>
-					<Button
-						variant='ghost'
-						className={'absolute top-0 right-0 mr-3 mt-2'}
-						onClick={handleWishlistClick}
-					>
-						<Heart
-							className={cn(
-								'size-5',
-								inWishlist
-									? 'fill-red-500 stroke-red-500'
-									: 'stroke-neutral-500'
-							)}
-						/>
-					</Button>
+					{isAuthenticated && (
+						<Button
+							variant='ghost'
+							className={'absolute top-0 right-0 mr-3 mt-2'}
+							onClick={handleWishlistClick}
+						>
+							<Heart
+								className={cn(
+									'size-5',
+									inWishlist
+										? 'fill-red-500 stroke-red-500'
+										: 'stroke-neutral-500'
+								)}
+							/>
+						</Button>
+					)}
 					<Button
 						size='lg'
 						className='absolute left-0 bottom-0 w-full rounded-b-sm'
