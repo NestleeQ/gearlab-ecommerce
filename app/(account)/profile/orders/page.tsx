@@ -69,14 +69,28 @@ export default function OrdersPage() {
 							<p className='mt-1 text-body text-neutral-500'>
 								Ordered On: {formatDate(order.orderedAt)}
 							</p>
-							<p className='mt-1 font-medium text-neutral-900'>
-								{formatPrice(order.price)}
-							</p>
+							<div className='mt-2 space-y-1 text-sm'>
+								<div className='flex items-center gap-2 text-neutral-600'>
+									<span>Quantity: {order.quantity}</span>
+									<span className='text-neutral-300'>•</span>
+									<span>{formatPrice(order.price)} each</span>
+								</div>
+								<div className='flex items-center gap-2'>
+									{order.tax > 0 && (
+										<span className='text-neutral-600'>
+											Tax: {formatPrice(order.tax)}
+										</span>
+									)}
+								</div>
+								<p className='font-semibold text-neutral-900'>
+									Total: {formatPrice(order.total)}
+								</p>
+							</div>
 						</div>
 						<div className='flex items-center gap-4'>
 							<span
 								className={cn(
-									'rounded-full px-4 py-2 text-sm font-medium',
+									'rounded-full px-4 py-2 text-sm font-medium capitalize',
 									order.status === 'processing' &&
 										'bg-yellow-100 text-yellow-800',
 									order.status === 'completed' &&
@@ -85,8 +99,7 @@ export default function OrdersPage() {
 										'bg-red-100 text-red-800'
 								)}
 							>
-								{order.status.charAt(0).toUpperCase() +
-									order.status.slice(1)}
+								{order.status}
 							</span>
 							<Link href={`/products/${order.productSlug}`}>
 								<Button variant='outline'>View item</Button>

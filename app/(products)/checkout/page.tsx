@@ -30,7 +30,11 @@ export default function CheckoutPage() {
 				productImage: item.image,
 				productSlug: item.slug,
 				price: item.price,
-				quantity: item.quantity
+				quantity: item.quantity,
+				subtotal: subtotal,
+				shipping: shipping,
+				tax: tax,
+				total: finalTotal
 			})
 		})
 

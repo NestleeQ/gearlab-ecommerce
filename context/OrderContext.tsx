@@ -1,18 +1,17 @@
 'use client'
-
-import { iOrder } from '@/types/order'
+import { Order } from '@/types/order'
 import { createContext, useContext, useEffect, useState } from 'react'
 import { useAuth } from './AuthContext'
 
 interface OrderContextType {
-	orders: iOrder[]
-	addOrder: (order: Omit<iOrder, 'id' | 'orderedAt' | 'status'>) => void
+	orders: Order[]
+	addOrder: (order: Omit<Order, 'id' | 'orderedAt' | 'status'>) => void
 }
 
 const OrderContext = createContext<OrderContextType | undefined>(undefined)
 
 export function OrderProvider({ children }: { children: React.ReactNode }) {
-	const [orders, setOrders] = useState<iOrder[]>([])
+	const [orders, setOrders] = useState<Order[]>([])
 	const { user } = useAuth()
 
 	useEffect(() => {
@@ -31,9 +30,9 @@ export function OrderProvider({ children }: { children: React.ReactNode }) {
 	}, [orders, user])
 
 	const addOrder = (
-		orderData: Omit<iOrder, 'id' | 'orderedAt' | 'status'>
+		orderData: Omit<Order, 'id' | 'orderedAt' | 'status'>
 	) => {
-		const newOrder: iOrder = {
+		const newOrder: Order = {
 			...orderData,
 			id: crypto.randomUUID(),
 			orderedAt: new Date().toISOString(),
