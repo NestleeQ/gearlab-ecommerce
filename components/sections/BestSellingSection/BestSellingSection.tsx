@@ -1,17 +1,15 @@
-'use client'
 import PageContainer from '@/components/layout/PageContainer/PageContainer'
 import ProductCard from '@/components/ui/ProductCard/ProductCard'
 import Title from '@/components/ui/Title/Title'
-import { getBestSellers, iProduct } from '@/services/products'
-import { useEffect, useState } from 'react'
+import { iProduct } from '@/services/products'
 
-export default function BestSellingSection() {
-	const [bestSellers, setBestSellers] = useState<iProduct[]>([])
+interface BestSellingSectionProps {
+	bestSellers: iProduct[]
+}
 
-	useEffect(() => {
-		getBestSellers(4).then(setBestSellers)
-	}, [])
-
+export default function BestSellingSection({
+	bestSellers
+}: BestSellingSectionProps) {
 	return (
 		<PageContainer className='mt-42'>
 			<div className='text-center'>

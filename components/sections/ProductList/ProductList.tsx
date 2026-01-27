@@ -7,23 +7,17 @@ import {
 	TabsList,
 	TabsTrigger
 } from '@/components/ui/Tabs/Tabs'
-import {
-	getNewProducts,
-	getPopularProducts,
-	iProduct
-} from '@/services/products'
-import { useEffect, useState } from 'react'
+import { iProduct } from '@/services/products'
 
-export default function ProductList() {
-	const [popularProducts, setPopularProducts] = useState<iProduct[] | null>(
-		[]
-	)
-	const [newProducts, setNewProducts] = useState<iProduct[]>([])
+interface ProductListProps {
+	popularProducts: iProduct[] | null
+	newProducts: iProduct[]
+}
 
-	useEffect(() => {
-		getPopularProducts(4).then(setPopularProducts)
-		getNewProducts(4).then(setNewProducts)
-	}, [])
+export default function ProductList({
+	popularProducts,
+	newProducts
+}: ProductListProps) {
 
 	return (
 		<PageContainer className='mt-38'>
