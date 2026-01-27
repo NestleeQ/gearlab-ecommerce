@@ -26,10 +26,30 @@ export interface iProduct {
 
 const products: iProduct[] = productData.products as iProduct[]
 
+export function getAllProductSlugs(): string[] {
+	const seen = new Set<string>()
+
+	return products.reduce<string[]>((acc, product) => {
+		const normalized = product.slug.trim().toLowerCase()
+		if (!seen.has(normalized)) {
+			seen.add(normalized)
+			acc.push(normalized)
+		}
+		return acc
+	}, [])
+}
+
 export async function getProductsBySlug(
 	slug: string
 ): Promise<iProduct | null> {
-	return products.find(p => p.slug === slug) || null
+	const normalizedSlug = slug.trim().toLowerCase()
+
+	console.log(slug)
+
+	return (
+		products.find(p => p.slug.trim().toLowerCase() === normalizedSlug) ||
+		null
+	)
 }
 
 export async function getBestSellers(limit = 4): Promise<iProduct[]> {

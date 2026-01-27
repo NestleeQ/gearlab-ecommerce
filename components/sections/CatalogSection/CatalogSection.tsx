@@ -72,7 +72,10 @@ export default function CatalogSection() {
 				}
 			} catch (error: unknown) {
 				if (
-					!(error instanceof DOMException && error.name === 'AbortError')
+					!(
+						error instanceof DOMException &&
+						error.name === 'AbortError'
+					)
 				) {
 					console.error('Error loading products: ', error)
 				}
@@ -123,7 +126,10 @@ export default function CatalogSection() {
 		<div>
 			<ResultsHeader
 				showingFrom={(currentPage - 1) * itemsPerPage + 1}
-				showingTo={Math.min(currentPage * itemsPerPage, productsData.total)}
+				showingTo={Math.min(
+					currentPage * itemsPerPage,
+					productsData.total
+				)}
 				total={productsData.total}
 				sortBy={sortBy}
 				onSortChange={handleSortChange}

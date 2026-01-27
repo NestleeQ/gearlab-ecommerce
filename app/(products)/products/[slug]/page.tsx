@@ -10,10 +10,22 @@ import {
 	CarouselNext,
 	CarouselPrevious
 } from '@/components/ui/Carousel/Carousel'
-import { getProductsBySlug, iProduct } from '@/services/products'
+import {
+	getAllProductSlugs,
+	getProductsBySlug,
+	iProduct
+} from '@/services/products'
 import { getReviewsByProductId } from '@/services/reviews'
 import Image from 'next/image'
-import notFound from './not-found'
+import { notFound } from 'next/navigation'
+
+export const revalidate = 60
+
+export async function generateStaticParams() {
+	const slugs = getAllProductSlugs()
+
+	return slugs.map(slug => ({ slug }))
+}
 
 export default async function ProductPage({
 	params
@@ -24,7 +36,7 @@ export default async function ProductPage({
 	const product: iProduct | null = await getProductsBySlug(slug)
 
 	if (!product) {
-		notFound()
+		return notFound()
 	}
 
 	const reviews = await getReviewsByProductId(product.id)
