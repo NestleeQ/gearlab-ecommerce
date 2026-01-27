@@ -8,6 +8,7 @@ interface OrderSummaryProps {
 	items: CartItem[]
 	subtotal: number
 	shipping: number
+	totalQuantity: number
 	tax: number
 	total: number
 }
@@ -16,6 +17,7 @@ export default function OrderSummary({
 	items,
 	subtotal,
 	shipping,
+	totalQuantity,
 	tax,
 	total
 }: OrderSummaryProps) {
@@ -55,6 +57,12 @@ export default function OrderSummary({
 				)}
 			</div>
 			<div className='space-y-4 border-t border-neutral-light-100 pt-6'>
+				<div className='flex justify-between text-body'>
+					<span className='text-neutral-600'>Quantity:</span>
+					<span className='font-medium text-neutral-900'>
+						x{totalQuantity}
+					</span>
+				</div>
 				<div className='flex justify-between text-body'>
 					<span className='text-neutral-600'>Subtotal:</span>
 					<span className='font-medium text-neutral-900'>

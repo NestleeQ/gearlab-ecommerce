@@ -17,17 +17,27 @@ interface CartContextType extends CartState {
 const CartContext = createContext<CartContextType | undefined>(undefined)
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
-	const [items, setItems] = useState<CartItem[]>([])
-
-	useEffect(() => {
-		const savedCart = localStorage.getItem('cart')
-		if (savedCart) {
-			setItems(JSON.parse(savedCart))
+	// Ленивая инициализация - выполнится только один раз
+	const [items, setItems] = useState<CartItem[]>(() => {
+		if (typeof window !== 'undefined') {
+			const savedCart = localStorage.getItem('cart')
+			if (savedCart) {
+				try {
+					return JSON.parse(savedCart)
+				} catch (error) {
+					console.error('Error loading cart:', error)
+					return []
+				}
+			}
 		}
-	}, [])
+		return []
+	})
 
+	// Синхронизация с localStorage при изменении items
 	useEffect(() => {
-		localStorage.setItem('cart', JSON.stringify(items))
+		if (typeof window !== 'undefined') {
+			localStorage.setItem('cart', JSON.stringify(items))
+		}
 	}, [items])
 
 	const total = items.reduce(
@@ -47,11 +57,18 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 			)
 
 			if (existingItemIndex > -1) {
+				// Товар уже есть - увеличиваем количество
 				const updatedItems = [...prevItems]
-				updatedItems[existingItemIndex].quantity += newItem.quantity
+				updatedItems[existingItemIndex] = {
+					...updatedItems[existingItemIndex],
+					quantity:
+						updatedItems[existingItemIndex].quantity +
+						newItem.quantity
+				}
 				return updatedItems
 			} else {
-				return [...prevItems, newItem]
+				// Новый товар - добавляем в корзину
+				return [...prevItems, { ...newItem }]
 			}
 		})
 	}

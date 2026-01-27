@@ -11,7 +11,7 @@ import { formatPrice } from '@/lib/utils'
 import Link from 'next/link'
 
 export default function CartPage() {
-	const { items } = useCart()
+	const { items, itemCount } = useCart()
 	const { isAuthenticated } = useAuth()
 	const { subtotal, shipping, tax, finalTotal } = useOrderTotals()
 
@@ -62,6 +62,12 @@ export default function CartPage() {
 								Order Summary
 							</h2>
 							<div className='space-y-4'>
+								<div className='flex justify-between text-body'>
+									<Text color={600}>Quantity</Text>
+									<Text className='font-medium text-neutral-900'>
+										x{itemCount}
+									</Text>
+								</div>
 								<div className='flex justify-between text-body'>
 									<Text color={600}>Subtotal</Text>
 									<Text className='font-medium text-neutral-900'>
