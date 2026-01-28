@@ -1,9 +1,8 @@
 'use client'
-
 import { createContext, useContext, useEffect, useState } from 'react'
 import { useAuth } from './AuthContext'
 
-interface iWishlistItem {
+interface WishlistItem {
 	id: number
 	slug: string
 	title: string
@@ -13,8 +12,8 @@ interface iWishlistItem {
 }
 
 interface WishlistContextType {
-	items: iWishlistItem[]
-	addToWishlist: (item: Omit<iWishlistItem, 'addedAt'>) => void
+	items: WishlistItem[]
+	addToWishlist: (item: Omit<WishlistItem, 'addedAt'>) => void
 	removeFromWishlist: (id: number) => void
 	isInWishlist: (id: number) => boolean
 }
@@ -24,25 +23,37 @@ const WishlistContext = createContext<WishlistContextType | undefined>(
 )
 
 export function WishlistProvider({ children }: { children: React.ReactNode }) {
-	const [items, setItems] = useState<iWishlistItem[]>([])
-	const { user } = useAuth()
-
-	useEffect(() => {
-		if (user) {
-			const saved = localStorage.getItem(`wishlist_${user.id}`)
-			if (saved) {
-				setItems(JSON.parse(saved))
+	// Ленивая инициализация
+	const [items, setItems] = useState<WishlistItem[]>(() => {
+		if (typeof window !== 'undefined') {
+			const currentUser = localStorage.getItem('currentUser')
+			if (currentUser) {
+				try {
+					const user = JSON.parse(currentUser)
+					const savedWishlist = localStorage.getItem(
+						`wishlist_${user.id}`
+					)
+					if (savedWishlist) {
+						return JSON.parse(savedWishlist)
+					}
+				} catch (error) {
+					console.error('Error loading wishlist:', error)
+				}
 			}
 		}
-	}, [user])
+		return []
+	})
 
+	const { user } = useAuth()
+
+	// Сохранение при изменении
 	useEffect(() => {
 		if (user && items.length > 0) {
 			localStorage.setItem(`wishlist_${user.id}`, JSON.stringify(items))
 		}
 	}, [items, user])
 
-	const addToWishlist = (item: Omit<iWishlistItem, 'addedAt'>) => {
+	const addToWishlist = (item: Omit<WishlistItem, 'addedAt'>) => {
 		if (!items.find(i => i.id === item.id)) {
 			setItems(prev => [
 				...prev,

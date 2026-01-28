@@ -1,7 +1,7 @@
 'use client'
 
 import { iAuthState, iUser } from '@/types/auth'
-import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useContext, useState } from 'react'
 
 interface AuthContextType extends iAuthState {
 	login: (email: string, password: string) => boolean
@@ -16,18 +16,29 @@ interface AuthContextType extends iAuthState {
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-	const [user, setUser] = useState<iUser | null>(null)
-	const [isAuthenticated, setIsAuthenticated] = useState(false)
-	const [isLoading, setIsLoading] = useState(true)
-
-	useEffect(() => {
-		const savedUser = localStorage.getItem('currentUser')
-		if (savedUser) {
-			setUser(JSON.parse(savedUser))
-			setIsAuthenticated(true)
+	const [user, setUser] = useState<iUser | null>(() => {
+		if (typeof window !== 'undefined') {
+			const savedUser = localStorage.getItem('currentUser')
+			if (savedUser) {
+				try {
+					return JSON.parse(savedUser)
+				} catch {
+					return null
+				}
+			}
 		}
-		setIsLoading(false)
-	}, [])
+		return null
+	})
+
+	const [isAuthenticated, setIsAuthenticated] = useState(() => {
+		if (typeof window !== 'undefined') {
+			return !!localStorage.getItem('currentUser')
+		}
+		return false
+	})
+
+	// Загрузка завершена сразу (нет асинхронной загрузки из localStorage)
+	const [isLoading] = useState(false)
 
 	const getUsers = (): iUser[] => {
 		const users = localStorage.getItem('users')

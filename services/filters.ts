@@ -1,5 +1,21 @@
 import productsData from '@/data/products.json'
-export async function getCategories() {
+
+export interface ICategory {
+	name: string
+	count: number
+}
+
+export interface IColor {
+	color: string
+	count: number
+}
+
+export interface ISize {
+	size: string
+	count: number
+}
+
+export async function getCategories(): Promise<ICategory[]> {
 	// Подсчитываем количество товаров в каждой категории
 	const categoryCounts: Record<string, number> = {}
 
@@ -14,7 +30,7 @@ export async function getCategories() {
 	}))
 }
 
-export async function getColors() {
+export async function getColors(): Promise<IColor[]> {
 	const allColors = productsData.products.flatMap(p => p.color)
 	const colorCounts: Record<string, number> = {}
 
@@ -29,7 +45,7 @@ export async function getColors() {
 	}))
 }
 
-export async function getSizes() {
+export async function getSizes(): Promise<ISize[]> {
 	const allSizes = productsData.products.flatMap(p => p.size)
 	const sizeCounts: Record<string, number> = {}
 

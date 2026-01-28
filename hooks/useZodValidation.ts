@@ -1,6 +1,5 @@
-// hooks/useZodValidation.ts
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { ZodError, ZodObject } from 'zod'
+import { z, ZodError } from 'zod'
 
 interface UseZodValidationReturn<T> {
 	values: T
@@ -13,8 +12,8 @@ interface UseZodValidationReturn<T> {
 	setGlobalError: (error: string) => void
 }
 
-export const useZodValidation = <T extends Record<string, any>>(
-	schema: ZodObject,
+export const useZodValidation = <T extends object>(
+	schema: z.ZodObject,
 	initialValues: T
 ): UseZodValidationReturn<T> => {
 	const [values, setValues] = useState<T>(initialValues)

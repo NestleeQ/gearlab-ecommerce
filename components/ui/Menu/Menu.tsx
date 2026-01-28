@@ -5,13 +5,22 @@ import {
 	DropdownMenuItem,
 	DropdownMenuTrigger
 } from '@/components/ui/DropdownMenu/DropdownMenu'
-import { categoriesList } from '@/data/categories.data'
+import { ICategory } from '@/services/filters'
 import { ChevronDown, ChevronUp } from 'lucide-react'
 import Link from 'next/link'
 import { useState } from 'react'
 
-export default function Menu() {
+interface IMenu {
+	categories: ICategory[]
+}
+
+export default function Menu({ categories = [] }: IMenu) {
 	const [isOpen, setIsOpen] = useState<boolean>(false)
+
+	const capitalizeFirstLetter = (str: string) => {
+		if (!str) return ''
+		return str.charAt(0).toUpperCase() + str.slice(1)
+	}
 
 	return (
 		<ul className='flex space-x-8 items-baseline'>
@@ -39,14 +48,14 @@ export default function Menu() {
 						</span>
 					</DropdownMenuTrigger>
 					<DropdownMenuContent>
-						{categoriesList.map(elem => {
+						{categories.map(elem => {
 							return (
-								<DropdownMenuItem key={elem.value}>
+								<DropdownMenuItem key={elem.name}>
 									<Link
-										href={`/products?cat=${elem.value}`}
+										href={`/products?category=${elem.name.toLowerCase()}`}
 										className='text-body text-neutral-500 font-medium hover:text-neutral-300'
 									>
-										{elem.label}
+										{capitalizeFirstLetter(elem.name)}
 									</Link>
 								</DropdownMenuItem>
 							)

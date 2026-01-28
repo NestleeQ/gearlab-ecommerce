@@ -3,10 +3,15 @@ import CartIcon from '@/components/ui/CartIcon/CartIcon'
 import Logo from '@/components/ui/Logo/Logo'
 import Menu from '@/components/ui/Menu/Menu'
 import { useAuth } from '@/context/AuthContext'
+import { ICategory } from '@/services/filters'
 import { User } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 
-export default function Header() {
+interface IHeader {
+	categories: ICategory[]
+}
+
+export default function Header({ categories }: IHeader) {
 	const router = useRouter()
 	const { isAuthenticated, user } = useAuth()
 
@@ -23,7 +28,7 @@ export default function Header() {
 	return (
 		<header className='container-custom min-h-21 flex justify-between items-center'>
 			<Logo />
-			<Menu />
+			<Menu categories={categories} />
 			<div className='flex items-center'>
 				<div className='flex items-center ml-8 space-x-6'>
 					<CartIcon />

@@ -51,7 +51,7 @@ export const shopLinks: iLink[] = [
 	{
 		id: 'about-us',
 		label: 'My Account',
-		url: '/my-account'
+		url: '/profile'
 	},
 	{
 		id: 'checkout',

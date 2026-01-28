@@ -11,18 +11,30 @@ interface OrderContextType {
 const OrderContext = createContext<OrderContextType | undefined>(undefined)
 
 export function OrderProvider({ children }: { children: React.ReactNode }) {
-	const [orders, setOrders] = useState<Order[]>([])
-	const { user } = useAuth()
-
-	useEffect(() => {
-		if (user) {
-			const savedOrders = localStorage.getItem(`orders_${user.id}`)
-			if (savedOrders) {
-				setOrders(JSON.parse(savedOrders))
+	// Ленивая инициализация
+	const [orders, setOrders] = useState<Order[]>(() => {
+		if (typeof window !== 'undefined') {
+			const currentUser = localStorage.getItem('currentUser')
+			if (currentUser) {
+				try {
+					const user = JSON.parse(currentUser)
+					const savedOrders = localStorage.getItem(
+						`orders_${user.id}`
+					)
+					if (savedOrders) {
+						return JSON.parse(savedOrders)
+					}
+				} catch (error) {
+					console.error('Error loading orders:', error)
+				}
 			}
 		}
-	}, [user])
+		return []
+	})
 
+	const { user } = useAuth()
+
+	// Сохранение при изменении
 	useEffect(() => {
 		if (user && orders.length > 0) {
 			localStorage.setItem(`orders_${user.id}`, JSON.stringify(orders))
