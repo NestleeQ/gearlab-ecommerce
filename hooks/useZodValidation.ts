@@ -10,10 +10,11 @@ interface UseZodValidationReturn<T> {
 	reset: (newInitialValues?: T) => void
 	setFieldError: (field: keyof T, error: string) => void
 	setGlobalError: (error: string) => void
+	setValues: React.Dispatch<React.SetStateAction<T>>
 }
 
 export const useZodValidation = <T extends object>(
-	schema: z.ZodObject,
+	schema: z.ZodObject<z.ZodRawShape>,
 	initialValues: T
 ): UseZodValidationReturn<T> => {
 	const [values, setValues] = useState<T>(initialValues)
@@ -104,7 +105,8 @@ export const useZodValidation = <T extends object>(
 			validateForm,
 			reset,
 			setFieldError,
-			setGlobalError
+			setGlobalError,
+			setValues
 		}),
 		[
 			values,

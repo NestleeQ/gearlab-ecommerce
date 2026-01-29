@@ -2,51 +2,387 @@
 	"reviews": [
 		{
 			"id": 1,
-			"productId": 1,
-			"author": "Emily Davis",
-			"rating": 4,
-			"comment": "This company always goes above and beyond to satisfy their customers.",
-			"createdAt": "2026-01-15T10:30:00Z"
+			"productId": 83,
+			"author": "Logan Lee",
+			"rating": 1,
+			"comment": "Waste of money!",
+			"createdAt": "2025-04-30T09:41:02Z"
 		},
 		{
 			"id": 2,
-			"productId": 1,
-			"author": "Daniel Smith",
-			"rating": 4,
-			"comment": "I can't believe how affordable and high-quality this item is!",
-			"createdAt": "2025-11-20T14:20:00Z"
+			"productId": 83,
+			"author": "Zachary Lee",
+			"rating": 5,
+			"comment": "Very satisfied!",
+			"createdAt": "2025-04-30T09:41:02Z"
 		},
 		{
 			"id": 3,
-			"productId": 1,
-			"author": "Benjamin Clark",
+			"productId": 83,
+			"author": "Aurora Rodriguez",
 			"rating": 4,
-			"comment": "These guys know their stuff, and it shows in their products.",
-			"createdAt": "2025-04-23T09:15:00Z"
+			"comment": "Fast shipping!",
+			"createdAt": "2025-04-30T09:41:02Z"
 		},
 		{
 			"id": 4,
-			"productId": 1,
-			"author": "Sarah Johnson",
+			"productId": 84,
+			"author": "Amelia Perez",
 			"rating": 5,
-			"comment": "Excellent quality and fast shipping. Highly recommend!",
-			"createdAt": "2026-01-10T16:45:00Z"
+			"comment": "Excellent quality!",
+			"createdAt": "2025-04-30T09:41:02Z"
 		},
 		{
 			"id": 5,
-			"productId": 1,
-			"author": "Michael Brown",
+			"productId": 84,
+			"author": "Tyler Davis",
 			"rating": 5,
-			"comment": "Perfect fit and amazing material. Worth every penny!",
-			"createdAt": "2025-12-05T11:30:00Z"
+			"comment": "Awesome product!",
+			"createdAt": "2025-04-30T09:41:02Z"
 		},
 		{
 			"id": 6,
-			"productId": 1,
-			"author": "Jessica Wilson",
+			"productId": 84,
+			"author": "Harper King",
+			"rating": 1,
+			"comment": "Disappointing product!",
+			"createdAt": "2025-04-30T09:41:02Z"
+		},
+		{
+			"id": 7,
+			"productId": 85,
+			"author": "Aubrey Wagner",
+			"rating": 3,
+			"comment": "Disappointing product!",
+			"createdAt": "2025-04-30T09:41:02Z"
+		},
+		{
+			"id": 8,
+			"productId": 85,
+			"author": "Evan Reed",
 			"rating": 4,
-			"comment": "Great product, very comfortable and stylish.",
-			"createdAt": "2026-01-12T13:20:00Z"
+			"comment": "Awesome product!",
+			"createdAt": "2025-04-30T09:41:02Z"
+		},
+		{
+			"id": 9,
+			"productId": 85,
+			"author": "Evelyn Gonzalez",
+			"rating": 2,
+			"comment": "Very disappointed!",
+			"createdAt": "2025-04-30T09:41:02Z"
+		},
+		{
+			"id": 10,
+			"productId": 86,
+			"author": "Charlotte Lopez",
+			"rating": 5,
+			"comment": "Highly recommended!",
+			"createdAt": "2025-04-30T09:41:02Z"
+		},
+		{
+			"id": 11,
+			"productId": 86,
+			"author": "Ellie Stewart",
+			"rating": 2,
+			"comment": "Poor quality!",
+			"createdAt": "2025-04-30T09:41:02Z"
+		},
+		{
+			"id": 12,
+			"productId": 86,
+			"author": "Sadie Morales",
+			"rating": 1,
+			"comment": "Would not recommend!",
+			"createdAt": "2025-04-30T09:41:02Z"
+		},
+		{
+			"id": 13,
+			"productId": 87,
+			"author": "Mateo Nguyen",
+			"rating": 3,
+			"comment": "Would not recommend!",
+			"createdAt": "2025-04-30T09:41:02Z"
+		},
+		{
+			"id": 14,
+			"productId": 87,
+			"author": "Lucas Allen",
+			"rating": 5,
+			"comment": "Fast shipping!",
+			"createdAt": "2025-04-30T09:41:02Z"
+		},
+		{
+			"id": 15,
+			"productId": 87,
+			"author": "Henry Adams",
+			"rating": 2,
+			"comment": "Very unhappy with my purchase!",
+			"createdAt": "2025-04-30T09:41:02Z"
+		},
+		{
+			"id": 16,
+			"productId": 88,
+			"author": "Elena Long",
+			"rating": 5,
+			"comment": "Highly impressed!",
+			"createdAt": "2025-04-30T09:41:02Z"
+		},
+		{
+			"id": 17,
+			"productId": 88,
+			"author": "Addison Wright",
+			"rating": 4,
+			"comment": "Very happy with my purchase!",
+			"createdAt": "2025-04-30T09:41:02Z"
+		},
+		{
+			"id": 18,
+			"productId": 88,
+			"author": "Mason Wright",
+			"rating": 1,
+			"comment": "Waste of money!",
+			"createdAt": "2025-04-30T09:41:02Z"
+		},
+		{
+			"id": 19,
+			"productId": 89,
+			"author": "Aaron Cook",
+			"rating": 5,
+			"comment": "Would buy again!",
+			"createdAt": "2025-04-30T09:41:02Z"
+		},
+		{
+			"id": 20,
+			"productId": 89,
+			"author": "Noah Lewis",
+			"rating": 2,
+			"comment": "Very disappointed!",
+			"createdAt": "2025-04-30T09:41:02Z"
+		},
+		{
+			"id": 21,
+			"productId": 89,
+			"author": "Michael Johnson",
+			"rating": 3,
+			"comment": "Would not recommend!",
+			"createdAt": "2025-04-30T09:41:02Z"
+		},
+		{
+			"id": 22,
+			"productId": 90,
+			"author": "Jackson Morales",
+			"rating": 5,
+			"comment": "Highly impressed!",
+			"createdAt": "2025-04-30T09:41:02Z"
+		},
+		{
+			"id": 23,
+			"productId": 90,
+			"author": "Sophia Jones",
+			"rating": 1,
+			"comment": "Very disappointed!",
+			"createdAt": "2025-04-30T09:41:02Z"
+		},
+		{
+			"id": 24,
+			"productId": 90,
+			"author": "Logan Torres",
+			"rating": 5,
+			"comment": "Very pleased!",
+			"createdAt": "2025-04-30T09:41:02Z"
+		},
+		{
+			"id": 25,
+			"productId": 91,
+			"author": "Sadie Morales",
+			"rating": 4,
+			"comment": "Would buy again!",
+			"createdAt": "2025-04-30T09:41:02Z"
+		},
+		{
+			"id": 26,
+			"productId": 91,
+			"author": "Julian Newton",
+			"rating": 5,
+			"comment": "Fast shipping!",
+			"createdAt": "2025-04-30T09:41:02Z"
+		},
+		{
+			"id": 27,
+			"productId": 91,
+			"author": "Logan Lee",
+			"rating": 5,
+			"comment": "Awesome product!",
+			"createdAt": "2025-04-30T09:41:02Z"
+		},
+		{
+			"id": 28,
+			"productId": 92,
+			"author": "Aurora Lawson",
+			"rating": 4,
+			"comment": "Excellent quality!",
+			"createdAt": "2025-04-30T09:41:02Z"
+		},
+		{
+			"id": 29,
+			"productId": 92,
+			"author": "Gabriel Mitchell",
+			"rating": 5,
+			"comment": "Great value for money!",
+			"createdAt": "2025-04-30T09:41:02Z"
+		},
+		{
+			"id": 30,
+			"productId": 92,
+			"author": "Eli Bennett",
+			"rating": 1,
+			"comment": "Not worth the price!",
+			"createdAt": "2025-04-30T09:41:02Z"
+		},
+		{
+			"id": 31,
+			"productId": 93,
+			"author": "James Garcia",
+			"rating": 1,
+			"comment": "Very unhappy with my purchase!",
+			"createdAt": "2025-04-30T09:41:02Z"
+		},
+		{
+			"id": 32,
+			"productId": 93,
+			"author": "Avery Barnes",
+			"rating": 4,
+			"comment": "Fast shipping!",
+			"createdAt": "2025-04-30T09:41:02Z"
+		},
+		{
+			"id": 33,
+			"productId": 93,
+			"author": "David Martinez",
+			"rating": 4,
+			"comment": "Would buy again!",
+			"createdAt": "2025-04-30T09:41:02Z"
+		},
+		{
+			"id": 34,
+			"productId": 94,
+			"author": "Eli Ward",
+			"rating": 4,
+			"comment": "Highly impressed!",
+			"createdAt": "2025-04-30T09:41:02Z"
+		},
+		{
+			"id": 35,
+			"productId": 94,
+			"author": "Owen Fisher",
+			"rating": 3,
+			"comment": "Very disappointed!",
+			"createdAt": "2025-04-30T09:41:02Z"
+		},
+		{
+			"id": 36,
+			"productId": 94,
+			"author": "Nathan Reed",
+			"rating": 5,
+			"comment": "Great product!",
+			"createdAt": "2025-04-30T09:41:02Z"
+		},
+		{
+			"id": 37,
+			"productId": 95,
+			"author": "Owen Sullivan",
+			"rating": 3,
+			"comment": "Not worth the price!",
+			"createdAt": "2025-04-30T09:41:02Z"
+		},
+		{
+			"id": 38,
+			"productId": 95,
+			"author": "Jonathan Pierce",
+			"rating": 4,
+			"comment": "Very satisfied!",
+			"createdAt": "2025-04-30T09:41:02Z"
+		},
+		{
+			"id": 39,
+			"productId": 95,
+			"author": "Adrian Flores",
+			"rating": 1,
+			"comment": "Would not buy again!",
+			"createdAt": "2025-04-30T09:41:02Z"
+		},
+		{
+			"id": 40,
+			"productId": 96,
+			"author": "Ella Adams",
+			"rating": 3,
+			"comment": "Poor quality!",
+			"createdAt": "2025-04-30T09:41:02Z"
+		},
+		{
+			"id": 41,
+			"productId": 96,
+			"author": "Leo Rivera",
+			"rating": 5,
+			"comment": "Very satisfied!",
+			"createdAt": "2025-04-30T09:41:02Z"
+		},
+		{
+			"id": 42,
+			"productId": 96,
+			"author": "Emma Miller",
+			"rating": 4,
+			"comment": "Very pleased!",
+			"createdAt": "2025-04-30T09:41:02Z"
+		},
+		{
+			"id": 43,
+			"productId": 97,
+			"author": "Alice Smith",
+			"rating": 4,
+			"comment": "Fast shipping!",
+			"createdAt": "2025-04-30T09:41:02Z"
+		},
+		{
+			"id": 44,
+			"productId": 97,
+			"author": "Abigail Rivera",
+			"rating": 4,
+			"comment": "Very pleased!",
+			"createdAt": "2025-04-30T09:41:02Z"
+		},
+		{
+			"id": 45,
+			"productId": 97,
+			"author": "Daniel Cook",
+			"rating": 3,
+			"comment": "Waste of money!",
+			"createdAt": "2025-04-30T09:41:02Z"
+		},
+		{
+			"id": 46,
+			"productId": 98,
+			"author": "Luna Perez",
+			"rating": 4,
+			"comment": "Great value for money!",
+			"createdAt": "2025-04-30T09:41:02Z"
+		},
+		{
+			"id": 47,
+			"productId": 98,
+			"author": "Hannah Robinson",
+			"rating": 5,
+			"comment": "Highly recommended!",
+			"createdAt": "2025-04-30T09:41:02Z"
+		},
+		{
+			"id": 48,
+			"productId": 98,
+			"author": "Aaliyah Hanson",
+			"rating": 5,
+			"comment": "Fast shipping!",
+			"createdAt": "2025-04-30T09:41:02Z"
 		}
 	]
 }

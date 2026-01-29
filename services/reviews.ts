@@ -8,6 +8,7 @@ export interface iReview {
 	rating: number
 	comment: string
 	createdAt: string
+	userEmail?: string
 }
 
 const reviews: iReview[] = reviewsData.reviews as iReview[]

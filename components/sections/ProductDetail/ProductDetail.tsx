@@ -1,6 +1,9 @@
 'use client'
+import { useAuth } from '@/context/AuthContext'
+import { useWishlist } from '@/context/WishListContext'
 import { useAddToCart } from '@/hooks/useAddToCart'
-import { formatPrice } from '@/lib/utils'
+import { useMounted } from '@/hooks/useMounted'
+import { cn, formatPrice } from '@/lib/utils'
 import { iProduct, Size } from '@/services/products'
 import { Heart, Star } from 'lucide-react'
 import { useState } from 'react'
@@ -19,6 +22,12 @@ export default function ProductDetail({ product }: { product: iProduct }) {
 	const [selectedSize, setSelectedSize] = useState<Size>(product.size[0])
 	const { handleAddToCart } = useAddToCart()
 
+	const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist()
+	const { isAuthenticated } = useAuth()
+	const mounted = useMounted()
+
+	const inWishlist = mounted && isInWishlist(product.id)
+
 	const onAddToCart = () => {
 		handleAddToCart({
 			id: product.id,
@@ -30,6 +39,24 @@ export default function ProductDetail({ product }: { product: iProduct }) {
 			size: selectedSize,
 			quantity: quantity
 		})
+	}
+
+	const handleWishlistClick = () => {
+		if (!isAuthenticated) {
+			return
+		}
+
+		if (inWishlist) {
+			removeFromWishlist(product.id)
+		} else {
+			addToWishlist({
+				id: product.id,
+				slug: product.slug,
+				title: product.title,
+				price: product.price,
+				image: product.images[0]
+			})
+		}
 	}
 
 	return (
@@ -81,12 +108,30 @@ export default function ProductDetail({ product }: { product: iProduct }) {
 					>
 						Add to cart
 					</Button>
-					<Button
-						variant='outline'
-						size='icon-lg'
-					>
-						<Heart />
-					</Button>
+					{mounted && (
+						<Button
+							variant='outline'
+							size='icon-lg'
+							onClick={handleWishlistClick}
+							disabled={!isAuthenticated}
+							title={
+								!isAuthenticated
+									? 'Sign in to add to wishlist'
+									: inWishlist
+										? 'Remove from wishlist'
+										: 'Add to wishlist'
+							}
+						>
+							<Heart
+								className={cn(
+									'size-5',
+									inWishlist
+										? 'fill-red-500 stroke-red-500'
+										: 'stroke-neutral-500'
+								)}
+							/>
+						</Button>
+					)}
 				</div>
 				<Text className='mt-3'>— Free shipping on orders $100+</Text>
 			</div>

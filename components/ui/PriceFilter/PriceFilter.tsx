@@ -1,20 +1,19 @@
 import { useQueryParams } from '@/hooks/useQueryParams'
-import { centsToDollars, dollarsToCents } from '@/lib/utils'
 import { ChangeEvent, useEffect, useState } from 'react'
 import { Field } from '../Field/Field'
 import { Input } from '../Input/Input'
 import { Slider } from '../Slider/Slider'
 import Text from '../Text/Text'
 
+const MAX_PRICE = 15000
+
 export default function PriceFilter() {
 	const { params, setPriceRange } = useQueryParams()
 
-	const currentMin = params.price_min
-		? centsToDollars(parseInt(params.price_min))
-		: 16
+	const currentMin = params.price_min ? parseFloat(params.price_min) : 0
 	const currentMax = params.price_max
-		? centsToDollars(parseInt(params.price_max))
-		: 57
+		? parseFloat(params.price_max)
+		: MAX_PRICE
 
 	const [localValues, setLocalValues] = useState<[number, number]>([
 		currentMin,
@@ -34,10 +33,10 @@ export default function PriceFilter() {
 		e: ChangeEvent<HTMLInputElement>,
 		type: 'min' | 'max'
 	) => {
-		const rawValue = e.target.value.replace(/[^\d.]/g, '')
-		const numValue = parseFloat(rawValue) || 0
+		const rawValue = e.target.value.replace(/[^\d]/g, '')
+		const numValue = parseInt(rawValue) || 0
 
-		if (numValue <= 100) {
+		if (numValue <= MAX_PRICE) {
 			const newValues: [number, number] = [...localValues]
 
 			if (type === 'min' && numValue <= localValues[1]) {
@@ -51,9 +50,7 @@ export default function PriceFilter() {
 	}
 
 	const handleInputBlur = () => {
-		const minCents = dollarsToCents(localValues[0])
-		const maxCents = dollarsToCents(localValues[1])
-		setPriceRange(minCents.toString(), maxCents.toString())
+		setPriceRange(localValues[0].toString(), localValues[1].toString())
 	}
 
 	const handleSliderValueChange = (values: number[]) => {
@@ -67,15 +64,22 @@ export default function PriceFilter() {
 
 	const handleSliderCommit = () => {
 		if (isSliderDragging) {
-			const minCents = dollarsToCents(localValues[0])
-			const maxCents = dollarsToCents(localValues[1])
-			setPriceRange(minCents.toString(), maxCents.toString())
+			setPriceRange(localValues[0].toString(), localValues[1].toString())
 			setIsSliderDragging(false)
 		}
 	}
 
 	const formatForInput = (value: number): string => {
-		return value === 0 ? '' : value.toFixed(2)
+		return Math.round(value).toString()
+	}
+
+	const formatForDisplay = (value: number): string => {
+		return new Intl.NumberFormat('en-US', {
+			style: 'currency',
+			currency: 'USD',
+			minimumFractionDigits: 0,
+			maximumFractionDigits: 0
+		}).format(value)
 	}
 
 	return (
@@ -96,7 +100,7 @@ export default function PriceFilter() {
 						<span className='text-gray-400'>—</span>
 						<Input
 							type='text'
-							placeholder='100'
+							placeholder={MAX_PRICE.toString()}
 							value={formatForInput(localValues[1])}
 							onChange={e => handleInputChange(e, 'max')}
 							onBlur={handleInputBlur}
@@ -108,15 +112,19 @@ export default function PriceFilter() {
 						value={localValues}
 						onValueChange={handleSliderValueChange}
 						onValueCommit={handleSliderCommit}
-						max={100}
+						max={MAX_PRICE}
 						min={0}
-						step={1}
+						step={10}
 						className='mt-4 w-full'
 						aria-label='Price Range'
 					/>
 					<div className='flex justify-between mt-1'>
-						<span className='text-body text-gray-500'>$0</span>
-						<span className='text-body text-gray-500'>$100</span>
+						<span className='text-body text-gray-500'>
+							{formatForDisplay(0)}
+						</span>
+						<span className='text-body text-gray-500'>
+							{formatForDisplay(MAX_PRICE)}
+						</span>
 					</div>
 				</Field>
 			</div>

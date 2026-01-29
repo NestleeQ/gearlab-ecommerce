@@ -59,6 +59,7 @@ export default function OrdersPage() {
 								src={order.productImage}
 								alt={order.productTitle}
 								fill
+								quality={80}
 								className='object-cover'
 							/>
 						</div>

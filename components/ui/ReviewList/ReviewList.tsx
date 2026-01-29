@@ -1,5 +1,7 @@
 'use client'
+import { useAuth } from '@/context/AuthContext'
 import { ReviewSortOption } from '@/data/sort.data'
+import { useReviews } from '@/hooks/useReviews'
 import { cn } from '@/lib/utils'
 import { iReview, sortReviews } from '@/services/reviews'
 import { useMemo, useState } from 'react'
@@ -21,7 +23,12 @@ export default function ReviewsList({
 	initialDisplay = 3,
 	className
 }: iReviewsList) {
-	const [reviews, setReviews] = useState<iReview[]>(initialReviews)
+	const { isAuthenticated } = useAuth()
+	const { reviews, addReview, deleteReview, canDeleteReview } = useReviews(
+		productId,
+		initialReviews
+	)
+
 	const [displayCount, setDisplayCount] = useState(initialDisplay)
 	const [sortBy, setSortBy] = useState<ReviewSortOption>('newest')
 	const [isDialogOpen, setIsDialogOpen] = useState(false)
@@ -43,18 +50,17 @@ export default function ReviewsList({
 	}
 
 	const handleSubmitReview = (
-		newReview: Omit<iReview, 'id' | 'createdAt'>
+		newReview: Omit<iReview, 'id' | 'createdAt' | 'author' | 'userEmail'>
 	) => {
-		const review: iReview = {
-			...newReview,
-			id: Date.now(),
-			createdAt: new Date().toISOString()
+		const review = addReview(newReview)
+		if (review) {
+			setSortBy('newest')
+			setDisplayCount(initialDisplay)
 		}
+	}
 
-		setReviews(prev => [review, ...prev])
-
-		setSortBy('newest')
-		setDisplayCount(initialDisplay)
+	const handleDeleteReview = (reviewId: number) => {
+		deleteReview(reviewId)
 	}
 
 	if (reviews.length === 0) {
@@ -65,20 +71,24 @@ export default function ReviewsList({
 					<p className='mt-2 text-body text-neutral-400'>
 						Be the first to review this product
 					</p>
-					<Button
-						variant='outline'
-						onClick={() => setIsDialogOpen(true)}
-						className='mt-4'
-					>
-						Write a review
-					</Button>
+					{isAuthenticated && (
+						<Button
+							variant='outline'
+							onClick={() => setIsDialogOpen(true)}
+							className='mt-4'
+						>
+							Write a review
+						</Button>
+					)}
 				</div>
-				<ReviewDialog
-					open={isDialogOpen}
-					onOpenChange={setIsDialogOpen}
-					onSubmit={handleSubmitReview}
-					productId={productId}
-				/>
+				{isAuthenticated && (
+					<ReviewDialog
+						open={isDialogOpen}
+						onOpenChange={setIsDialogOpen}
+						onSubmit={handleSubmitReview}
+						productId={productId}
+					/>
+				)}
 			</>
 		)
 	}
@@ -86,14 +96,16 @@ export default function ReviewsList({
 	return (
 		<div className={cn('flex flex-col', className)}>
 			<div className='flex items-center justify-between border-b border-neutral-light-100 pb-6'>
-				<Button
-					variant='outline'
-					size='lg'
-					className='min-w-32 font-medium'
-					onClick={() => setIsDialogOpen(true)}
-				>
-					Write a review
-				</Button>
+				{isAuthenticated && (
+					<Button
+						variant='outline'
+						size='lg'
+						className='min-w-32 font-medium'
+						onClick={() => setIsDialogOpen(true)}
+					>
+						Write a review
+					</Button>
+				)}
 				<ReviewSortSelect
 					sortBy={sortBy}
 					onSortChange={handleSortChange}
@@ -104,6 +116,8 @@ export default function ReviewsList({
 					<ReviewCard
 						key={review.id}
 						review={review}
+						canDelete={canDeleteReview(review)}
+						onDelete={() => handleDeleteReview(review.id)}
 					/>
 				))}
 			</div>
@@ -118,12 +132,14 @@ export default function ReviewsList({
 					</Button>
 				</div>
 			)}
-			<ReviewDialog
-				open={isDialogOpen}
-				onOpenChange={setIsDialogOpen}
-				onSubmit={handleSubmitReview}
-				productId={productId}
-			/>
+			{isAuthenticated && (
+				<ReviewDialog
+					open={isDialogOpen}
+					onOpenChange={setIsDialogOpen}
+					onSubmit={handleSubmitReview}
+					productId={productId}
+				/>
+			)}
 		</div>
 	)
 }

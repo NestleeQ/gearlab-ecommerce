@@ -10,6 +10,8 @@ const reverseColorMap: { [key: string]: string } = Object.fromEntries(
 	Object.entries(colorMap).map(([key, value]) => [value, key])
 )
 
+const MAX_PRICE = 15000
+
 export default function AppliedFilters() {
 	const { allParams, removeFilter, clearFilters, updateQueryParams } =
 		useQueryParams()
@@ -72,41 +74,39 @@ export default function AppliedFilters() {
 				</button>
 			</div>
 			<div className='flex flex-wrap gap-2'>
+				{(allParams.price_min || allParams.price_max) && (
+					<Badge
+						variant='outline'
+						key='price_range'
+						className='inline-flex items-center gap-1 text-neutral-900 px-3 text-body font-normal'
+					>
+						<span>
+							Price:{' '}
+							{formatPrice(parseInt(allParams.price_min || '0'))}{' '}
+							-{' '}
+							{formatPrice(
+								parseInt(
+									allParams.price_max || MAX_PRICE.toString()
+								)
+							)}
+						</span>
+						<Button
+							variant='ghost'
+							size='sm'
+							onClick={() => {
+								removeFilter('price_min')
+								removeFilter('price_max')
+							}}
+							className='ml-1 text-neutral-500'
+						>
+							<X size={19} />
+						</Button>
+					</Badge>
+				)}
+
 				{Object.entries(filteredParams).map(([key, value]) => {
 					if (!value || value === '' || value === '0') return null
-
-					if (key === 'price_min' && allParams.price_max) {
-						const min = parseInt(allParams.price_min)
-						const max = parseInt(allParams.price_max)
-						if (!isNaN(min) && !isNaN(max)) {
-							return (
-								<Badge
-									variant='outline'
-									key='price_range'
-									className='inline-flex items-center gap-1 text-neutral-900 px-3 text-body font-normal'
-								>
-									<span>
-										Price: {formatPrice(min)} -{' '}
-										{formatPrice(max)}
-									</span>
-									<Button
-										variant='ghost'
-										size='sm'
-										onClick={() => {
-											removeFilter('price_min')
-											removeFilter('price_max')
-										}}
-										className='ml-1 text-neutral-500'
-									>
-										<X size={19} />
-									</Button>
-								</Badge>
-							)
-						}
-						return null
-					}
-
-					if (key === 'price_max') return null
+					if (key === 'price_min' || key === 'price_max') return null
 
 					if (['category', 'color', 'size'].includes(key)) {
 						const items = value.split(',')
@@ -145,7 +145,19 @@ export default function AppliedFilters() {
 							key={key}
 							className='inline-flex items-center gap-1 bg-gray-100 text-gray-800 px-3 py-1.5 rounded-full text-body'
 						>
-							<span>{`${key}: ${value}`}</span>
+							<span>
+								{key === 'search'
+									? `"${value}"`
+									: `${key}: ${value}`}
+							</span>
+							<button
+								onClick={() =>
+									updateQueryParams({ [key]: null })
+								}
+								className='ml-1 text-gray-500 hover:text-gray-700'
+							>
+								<X size={14} />
+							</button>
 						</div>
 					)
 				})}

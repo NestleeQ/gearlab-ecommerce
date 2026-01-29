@@ -46,6 +46,7 @@ export default function OrderSummary({
 							src={item.image}
 							alt={item.title}
 							fill
+							quality={80}
 							className='object-cover'
 						/>
 					</div>

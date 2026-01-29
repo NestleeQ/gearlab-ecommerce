@@ -9,7 +9,7 @@ export function formatPrice(priceInCents: number): string {
 		style: 'currency',
 		currency: 'USD',
 		minimumFractionDigits: 2
-	}).format(priceInCents / 100)
+	}).format(priceInCents)
 }
 
 export function centsToDollars(cents: number): number {

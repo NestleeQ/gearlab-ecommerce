@@ -76,25 +76,35 @@ export default function ProductCard({
 	return (
 		<div className={cn('max-w-63 max-h-109', className)}>
 			<div
-				className={'relative'}
+				className='relative group'
 				onMouseEnter={() => setIsHover(true)}
 				onMouseLeave={() => setIsHover(false)}
 			>
-				<Image
-					src={images[0]}
-					alt={`${title}_cover`}
-					width={228}
-					height={312}
+				<Link href={`/products/${slug}`}>
+					<div className='relative overflow-hidden rounded-sm bg-neutral-50 transition-all duration-300 group-hover:border-neutral-300 group-hover:shadow-md cursor-pointer'>
+						<Image
+							src={images[0]}
+							alt={`${title}_cover`}
+							width={228}
+							height={312}
+							className={cn(
+								'w-full h-auto object-cover transition-opacity duration-300',
+								isHover ? 'opacity-50' : 'opacity-100'
+							)}
+						/>
+					</div>
+				</Link>
+
+				<div
 					className={cn(
-						'rounded-sm max-h-75',
-						isHover ? 'opacity-50' : 'opacity-100'
+						'absolute inset-0 transition-opacity duration-300 pointer-events-none',
+						isHover ? 'opacity-100' : 'opacity-0'
 					)}
-				/>
-				<div className={isHover ? 'opacity-100' : 'opacity-0'}>
+				>
 					{mounted && isAuthenticated && (
 						<Button
 							variant='ghost'
-							className={'absolute top-0 right-0 mr-3 mt-2'}
+							className='absolute top-0 right-0 mr-3 mt-2 pointer-events-auto'
 							onClick={handleWishlistClick}
 						>
 							<Heart
@@ -109,7 +119,7 @@ export default function ProductCard({
 					)}
 					<Button
 						size='lg'
-						className='absolute left-0 bottom-0 w-full rounded-b-sm'
+						className='absolute left-0 bottom-0 w-full rounded-t-none rounded-b-sm pointer-events-auto'
 						onClick={onAddToCart}
 					>
 						Add to cart <CirclePlus />
@@ -119,11 +129,11 @@ export default function ProductCard({
 			<div className='mt-6'>
 				<Link
 					href={`/products/${slug}`}
-					className='text-body text-neutral-900 font-medium hover:text-neutral-500'
+					className='text-body text-neutral-900 font-medium hover:text-neutral-500 transition-colors'
 				>
 					{title}
 				</Link>
-				<div className='flex mt-3'>
+				<div className='flex mt-3 items-center'>
 					<ProductStatus status={status} />
 					<p className='text-heading-h5 text-neutral-600 ml-4'>
 						{formatPrice(price)}

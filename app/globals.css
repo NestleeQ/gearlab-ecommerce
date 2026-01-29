@@ -75,6 +75,12 @@
 	--color-semantic-yellow-800: #f6bb33;
 	--color-semantic-yellow-400: #ffd58a;
 
+	--color-semantic-off-white: #f8f8ff;
+	--color-semantic-brown: #964b00;
+	--color-semantic-silver: #c0c0c0;
+	--color-semantic-gold: #ffd700;
+	--color-semantic-steel: #4682b4;
+
 	/* typography */
 	--text-heading-h2: 32px;
 	--text-heading-h3: 24px;

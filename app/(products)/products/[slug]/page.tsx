@@ -6,6 +6,7 @@ import BreadcrumbComponent from '@/components/ui/BreadcrumbComponent/BreadcrumbC
 import {
 	Carousel,
 	CarouselContent,
+	CarouselDots,
 	CarouselItem,
 	CarouselNext,
 	CarouselPrevious
@@ -67,35 +68,43 @@ export default async function ProductPage({
 		<PageContainer className='relative after:absolute after:w-full after:h-px after:top-0 after:bg-neutral-light-100'>
 			<div className='pt-5'>
 				<BreadcrumbComponent />
-				<div className='mt-4 flex items-center gap-20'>
-					<Carousel
-						className='w-150'
-						opts={{
-							loop: true
-						}}
-					>
-						<CarouselContent>
-							{product &&
-								product.images.map((image, index) => {
-									return (
-										<CarouselItem key={index}>
-											<div className='relative aspect-square overflow-hidden rounded-md bg-neutral-light-100 flex justify-center'>
-												<Image
-													src={image}
-													alt={`${product.title} - Image ${index + 1}`}
-													width={353}
-													height={495}
-													className='object-cover'
-													priority={index === 0}
-												/>
-											</div>
-										</CarouselItem>
-									)
-								})}
-						</CarouselContent>
-						<CarouselPrevious />
-						<CarouselNext />
-					</Carousel>
+				<div className='mt-4 flex items-start gap-20'>
+					<div className='w-150 shrink-0'>
+						<Carousel
+							opts={{
+								loop: true,
+								align: 'center'
+							}}
+						>
+							<div className='relative'>
+								<CarouselContent>
+									{product &&
+										product.images.map((image, index) => {
+											return (
+												<CarouselItem key={index}>
+													<div className='relative aspect-square overflow-hidden rounded-md bg-neutral-50'>
+														<Image
+															src={image}
+															alt={`${product.title} - Image ${index + 1}`}
+															fill
+															sizes='(max-width: 768px) 100vw, 600px'
+															className='object-cover'
+															quality={90}
+															priority={
+																index === 0
+															}
+														/>
+													</div>
+												</CarouselItem>
+											)
+										})}
+								</CarouselContent>
+								<CarouselPrevious />
+								<CarouselNext />
+								<CarouselDots className='absolute bottom-4 left-1/2 -translate-x-1/2' />
+							</div>
+						</Carousel>
+					</div>
 					{product && <ProductDetail product={product} />}
 				</div>
 				{product && (

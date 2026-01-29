@@ -73,11 +73,11 @@ export default function FilterSection({
 								key={option.value}
 								onClick={() => handleToggle(option.value)}
 								className={cn(
-									'w-8 h-8 rounded-full hover:border hover:border-1.7',
+									'w-8 h-8 rounded-full border hover:ring-1 hover:ring-neutral-300 hover:ring-offset-1 hover:ring-offset-neutral-50 transition-all',
 									option.tailwindClass,
 									isSelected
-										? 'border border-1.7 border-neutral-900'
-										: 'border-transparent hover:border-neutral-300'
+										? 'ring-1 ring-neutral-300 ring-offset-1 ring-offset-neutral-100'
+										: ''
 								)}
 								title={option.label}
 								aria-label={`Color: ${option.label}`}
@@ -96,7 +96,7 @@ export default function FilterSection({
 								key={option.value}
 								onClick={() => handleToggle(option.value)}
 								className={cn(
-									'w-9 h-9 rounded-sm flex items-center justify-center',
+									'w-max h-9 rounded-sm flex items-center justify-center',
 									'transition-colors hover:border-neutral-400',
 									isSelected
 										? 'border-neutral-900 bg-neutral-50 font-medium'

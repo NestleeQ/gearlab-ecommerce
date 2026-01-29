@@ -1,5 +1,6 @@
 import productData from '@/data/products.json'
 import { SortOption } from '@/data/sort.data'
+import { colorMap } from '@/lib/color-map'
 
 export type Size = 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL'
 
@@ -25,6 +26,10 @@ export interface iProduct {
 }
 
 const products: iProduct[] = productData.products as iProduct[]
+
+const reverseColorMap: { [key: string]: string } = Object.fromEntries(
+	Object.entries(colorMap).map(([key, value]) => [value, key])
+)
 
 export function getAllProductSlugs(): string[] {
 	const seen = new Set<string>()
@@ -143,8 +148,11 @@ export async function getFilteredProducts(filters?: {
 	}
 
 	if (filters.color && filters.color.length > 0) {
+		const readableColors = filters.color.map(
+			tc => reverseColorMap[tc] || tc
+		)
 		filtered = filtered.filter(product =>
-			product.color.some(color => filters.color!.includes(color))
+			product.color.some(color => readableColors.includes(color))
 		)
 	}
 
@@ -155,15 +163,13 @@ export async function getFilteredProducts(filters?: {
 	}
 
 	if (filters.minPrice !== undefined) {
-		filtered = filtered.filter(
-			product => product.price >= filters.minPrice!
-		)
+		const minPriceDollars = filters.minPrice / 100
+		filtered = filtered.filter(product => product.price >= minPriceDollars)
 	}
 
 	if (filters.maxPrice !== undefined) {
-		filtered = filtered.filter(
-			product => product.price <= filters.maxPrice!
-		)
+		const maxPriceDollars = filters.maxPrice / 100
+		filtered = filtered.filter(product => product.price <= maxPriceDollars)
 	}
 
 	const total = filtered.length

@@ -20,8 +20,13 @@ export function useQueryParams() {
 	const updateQueryParams = useCallback(
 		(updates: Record<string, string | string[] | null>) => {
 			const newParams = new URLSearchParams(searchParams)
+			let shouldResetPage = false
 
 			Object.entries(updates).forEach(([key, value]) => {
+				if (key !== 'page') {
+					shouldResetPage = true
+				}
+
 				if (value === null || value === '') {
 					newParams.delete(key)
 				} else if (Array.isArray(value)) {
@@ -34,6 +39,10 @@ export function useQueryParams() {
 					newParams.set(key, value)
 				}
 			})
+
+			if (shouldResetPage) {
+				newParams.set('page', '1')
+			}
 
 			router.replace(`${pathname}?${newParams.toString()}`)
 		},

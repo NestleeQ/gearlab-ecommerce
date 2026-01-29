@@ -75,6 +75,7 @@ export default function WishlistPage() {
 								src={item.image}
 								alt={item.title}
 								fill
+								quality={80}
 								className='object-cover'
 							/>
 						</div>

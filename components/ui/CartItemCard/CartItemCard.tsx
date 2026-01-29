@@ -1,5 +1,5 @@
-'use client'
 import { useCart } from '@/context/CartContext'
+import { colorMap } from '@/lib/color-map'
 import { cn, formatPrice } from '@/lib/utils'
 import { CartItem } from '@/types/cart'
 import { X } from 'lucide-react'
@@ -24,9 +24,10 @@ export default function CartItemCard({ item }: iCartItemCard) {
 				<Image
 					src={item.image}
 					alt={item.title}
-					width={58}
-					height={82}
+					fill={true}
+					sizes='96px'
 					className='object-cover'
+					quality={80}
 				/>
 			</div>
 			<div className='flex flex-1 flex-col justify-between'>
@@ -40,17 +41,8 @@ export default function CartItemCard({ item }: iCartItemCard) {
 								Color:{' '}
 								<span
 									className={cn(
-										'h-4 w-4 rounded-full border-neutral-300',
-										{
-											'bg-semantic-blue-400':
-												item.color === 'blue',
-											'bg-semantic-yellow-400':
-												item.color === 'yellow',
-											'bg-semantic-green-400':
-												item.color === 'green',
-											'bg-semantic-blue-900':
-												item.color === 'dark blue'
-										}
+										'h-4 w-4 rounded-full border border-neutral-200',
+										colorMap[item.color] || 'bg-neutral-200'
 									)}
 								/>
 								{item.color}

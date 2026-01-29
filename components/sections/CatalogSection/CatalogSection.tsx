@@ -39,8 +39,12 @@ export default function CatalogSection() {
 			category: params.category.length > 0 ? params.category : undefined,
 			color: params.color.length > 0 ? params.color : undefined,
 			size: params.size.length > 0 ? (params.size as Size[]) : undefined,
-			minPrice: params.price_min ? parseInt(params.price_min) : undefined,
-			maxPrice: params.price_max ? parseInt(params.price_max) : undefined,
+			minPrice: params.price_min
+				? parseFloat(params.price_min)
+				: undefined,
+			maxPrice: params.price_max
+				? parseFloat(params.price_max)
+				: undefined,
 			page: currentPage,
 			limit: itemsPerPage
 		}),

@@ -25,18 +25,18 @@ export default function ColorSelector({
 
 	const renderItems = () =>
 		availableColors.map(color => {
+			const isSelected = selectedColors.includes(color)
 			return (
 				<ToggleGroupItem
 					key={color}
 					value={color}
 					variant='outline'
 					className={cn(
-						'rounded-full hover:border hover:border-1.7 hover:border-neutral-900',
+						'rounded-full transition-all duration-200',
 						colorMap[color],
-						{
-							'border border-1.7 border-neutral-900':
-								selectedColors.includes(color)
-						}
+						isSelected
+							? 'ring-2 ring-neutral-300 ring-offset-2 ring-offset-neutral-100'
+							: 'hover:ring-2 hover:ring-neutral-300 hover:ring-offset-2 hover:ring-offset-neutral-50 transition-all'
 					)}
 				/>
 			)

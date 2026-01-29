@@ -6,19 +6,21 @@ import {
 	DialogHeader,
 	DialogTitle
 } from '@/components/ui/Dialog/Dialog'
-import { Input } from '@/components/ui/Input/Input'
 import { Textarea } from '@/components/ui/Textarea/Textarea'
+import { useAuth } from '@/context/AuthContext'
 import { useZodValidation } from '@/hooks/useZodValidation'
 import { ReviewFormData, reviewSchema } from '@/lib/validationSchemas'
 import { iReview } from '@/services/reviews'
 import { Star } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Button } from '../Button/Button'
 
 interface iReviewDialog {
 	open: boolean
 	onOpenChange: (open: boolean) => void
-	onSubmit: (review: Omit<iReview, 'id' | 'createdAt'>) => void
+	onSubmit: (
+		review: Omit<iReview, 'id' | 'createdAt' | 'author' | 'userEmail'>
+	) => void
 	productId: number
 }
 
@@ -28,21 +30,36 @@ export default function ReviewDialog({
 	onSubmit,
 	productId
 }: iReviewDialog) {
+	const { user } = useAuth()
+
 	const initialReviewData: ReviewFormData = {
-		email: '',
-		fullName: '',
+		email: user?.email || '',
+		fullName: user?.name || '',
 		comment: '',
 		rating: 0
 	}
+
 	const {
 		values,
 		errors,
 		handleChange,
 		handleNumberChange,
 		validateForm,
-		reset
+		reset,
+		setValues
 	} = useZodValidation(reviewSchema, initialReviewData)
 	const [hoveredRating, setHoveredRating] = useState(0)
+
+	useEffect(() => {
+		if (user) {
+			setValues({
+				email: user.email,
+				fullName: user.name,
+				comment: '',
+				rating: 0
+			})
+		}
+	}, [user, setValues])
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault()
@@ -50,7 +67,6 @@ export default function ReviewDialog({
 		if (validateForm()) {
 			onSubmit({
 				productId,
-				author: values.fullName.trim(),
 				rating: values.rating,
 				comment: values.comment.trim()
 			})
@@ -87,44 +103,6 @@ export default function ReviewDialog({
 				>
 					<div>
 						<label
-							htmlFor='email'
-							className='mb-4 block text-body font-medium text-neutral-900'
-						>
-							Email
-						</label>
-						<Input
-							id='email'
-							type='email'
-							value={values.email}
-							onChange={e =>
-								handleChange('email', e.target.value)
-							}
-							placeholder='Enter your email'
-							className='w-full py-5'
-							error={errors.email}
-						/>
-					</div>
-					<div className='mt-3.5'>
-						<label
-							htmlFor='fullName'
-							className='mb-2 block text-body font-medium text-neutral-900'
-						>
-							Full name
-						</label>
-						<Input
-							id='fullName'
-							type='text'
-							value={values.fullName}
-							onChange={e =>
-								handleChange('fullName', e.target.value)
-							}
-							placeholder='Enter your full name'
-							className='w-full py-5'
-							error={errors.fullName}
-						/>
-					</div>
-					<div className='mt-3.5'>
-						<label
 							htmlFor='review'
 							className='mb-2 block text-body font-medium text-neutral-900'
 						>
@@ -142,6 +120,9 @@ export default function ReviewDialog({
 						/>
 					</div>
 					<div className='mt-3.5'>
+						<label className='mb-2 block text-body font-medium text-neutral-900'>
+							Rating
+						</label>
 						<div className='flex items-center gap-2'>
 							{Array.from({ length: 5 }).map((_, index) => {
 								const starValue = index + 1
