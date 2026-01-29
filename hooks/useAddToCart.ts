@@ -1,37 +1,31 @@
 'use client'
 
 import { useCart } from '@/context/CartContext'
+import { CartItem } from '@/types/cart'
+import { useCallback } from 'react'
 import { toast } from 'sonner'
-
-interface iProductCartDetail {
-	id: number
-	slug: string
-	title: string
-	price: number
-	image: string
-	color: string
-	size: string
-	quantity?: number
-}
 
 export function useAddToCart() {
 	const { addToCart } = useCart()
 
-	const handleAddToCart = (product: iProductCartDetail) => {
-		const quantity = product.quantity || 1
-		const cartItem = {
-			...product,
-			quantity: quantity
-		}
+	const handleAddToCart = useCallback(
+		(item: CartItem) => {
+			addToCart(item)
 
-		addToCart(cartItem)
+			const cartIcon = document.querySelector('[data-cart-icon]')
+			if (cartIcon) {
+				cartIcon.classList.add('animate-bounce-once')
+				setTimeout(() => {
+					cartIcon.classList.remove('animate-bounce-once')
+				}, 600)
+			}
 
-		toast(`${product.title} was successfully added to the cart`, {
-			position: 'bottom-left'
-		})
-
-		return true
-	}
+			toast.success('Added to cart', {
+				description: `${item.title} has been added to your cart.`
+			})
+		},
+		[addToCart]
+	)
 
 	return { handleAddToCart }
 }

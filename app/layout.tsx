@@ -1,6 +1,5 @@
 import Footer from '@/components/layout/Footer/Footer'
 import Header from '@/components/layout/Header/Header'
-import { Toaster } from '@/components/ui/Sonner/Sonner'
 import { AuthProvider } from '@/context/AuthContext'
 import { CartProvider } from '@/context/CartContext'
 import { OrderProvider } from '@/context/OrderContext'
@@ -9,6 +8,7 @@ import { getCategories } from '@/services/filters'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import { Providers } from './providers'
 
 const interSans = Inter({
 	variable: '--font-inter-sans',
@@ -33,14 +33,15 @@ export default async function RootLayout({
 					<OrderProvider>
 						<WishlistProvider>
 							<CartProvider>
-								<Header categories={categories} />
-								{children}
-								<Footer />
+								<Providers>
+									<Header categories={categories} />
+									{children}
+									<Footer />
+								</Providers>
 							</CartProvider>
 						</WishlistProvider>
 					</OrderProvider>
 				</AuthProvider>
-				<Toaster />
 			</body>
 		</html>
 	)

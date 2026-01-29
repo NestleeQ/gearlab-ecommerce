@@ -9,6 +9,7 @@ import { CirclePlus, Heart } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
+import { toast } from 'sonner'
 import { Button } from '../Button/Button'
 import ProductStatus from '../ProductStatus/ProductStatus'
 
@@ -62,6 +63,7 @@ export default function ProductCard({
 	const handleWishlistClick = () => {
 		if (inWishlist) {
 			removeFromWishlist(id)
+			toast.success('Removed from wishlist')
 		} else {
 			addToWishlist({
 				id,
@@ -69,6 +71,9 @@ export default function ProductCard({
 				title,
 				price,
 				image: images[0]
+			})
+			toast.success('Added to wishlist', {
+				description: `${title} has been added to your wishlist.`
 			})
 		}
 	}
@@ -104,14 +109,14 @@ export default function ProductCard({
 					{mounted && isAuthenticated && (
 						<Button
 							variant='ghost'
-							className='absolute top-0 right-0 mr-3 mt-2 pointer-events-auto'
+							className='absolute top-0 right-0 mr-3 mt-2 pointer-events-auto transition-transform hover:scale-110'
 							onClick={handleWishlistClick}
 						>
 							<Heart
 								className={cn(
-									'size-5',
+									'size-5 transition-all duration-100',
 									inWishlist
-										? 'fill-red-500 stroke-red-500'
+										? 'fill-red-500 stroke-red-500 animate-heart-beat'
 										: 'stroke-neutral-500'
 								)}
 							/>
