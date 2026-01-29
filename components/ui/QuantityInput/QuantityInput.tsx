@@ -72,7 +72,7 @@ export default function QuantityInput({
 	const sizeClasses = {
 		sm: {
 			button: 'h-7 w-7',
-			input: 'h-7 w-12 text-sm',
+			input: 'h-7 w-12 text-body',
 			icon: 'h-3 w-3'
 		},
 		md: {

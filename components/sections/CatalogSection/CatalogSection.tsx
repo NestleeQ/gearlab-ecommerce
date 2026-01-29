@@ -9,6 +9,7 @@ import { useQueryParams } from '@/hooks/useQueryParams'
 import {
 	getFilteredProducts,
 	iProduct,
+	Size,
 	sortProducts
 } from '@/services/products'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
@@ -37,7 +38,7 @@ export default function CatalogSection() {
 		() => ({
 			category: params.category.length > 0 ? params.category : undefined,
 			color: params.color.length > 0 ? params.color : undefined,
-			size: params.size.length > 0 ? params.size : undefined,
+			size: params.size.length > 0 ? (params.size as Size[]) : undefined,
 			minPrice: params.price_min ? parseInt(params.price_min) : undefined,
 			maxPrice: params.price_max ? parseInt(params.price_max) : undefined,
 			page: currentPage,

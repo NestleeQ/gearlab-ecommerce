@@ -21,7 +21,7 @@ export default function ResultsHeader({
 	return (
 		<div className='flex justify-between items-center mb-6'>
 			<div>
-				<span className='text-sm text-neutral-600'>
+				<span className='text-body text-neutral-600'>
 					Showing {showingFrom}-{showingTo} of {total} Results.
 				</span>
 			</div>

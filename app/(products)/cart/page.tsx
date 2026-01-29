@@ -82,7 +82,7 @@ export default function CartPage() {
 											: formatPrice(shipping)}
 									</Text>
 								</div>
-								<div className='flex justify-between text-sm'>
+								<div className='flex justify-between text-body'>
 									<Text color={600}>Tax:</Text>
 									<Text className='font-medium text-neutral-900'>
 										{formatPrice(tax)}

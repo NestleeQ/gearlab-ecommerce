@@ -115,8 +115,8 @@ export default function PriceFilter() {
 						aria-label='Price Range'
 					/>
 					<div className='flex justify-between mt-1'>
-						<span className='text-sm text-gray-500'>$0</span>
-						<span className='text-sm text-gray-500'>$100</span>
+						<span className='text-body text-gray-500'>$0</span>
+						<span className='text-body text-gray-500'>$100</span>
 					</div>
 				</Field>
 			</div>

@@ -2,6 +2,7 @@
 import { useAuth } from '@/context/AuthContext'
 import { useWishlist } from '@/context/WishListContext'
 import { useAddToCart } from '@/hooks/useAddToCart'
+import { useMounted } from '@/hooks/useMounted'
 import { cn, formatPrice } from '@/lib/utils'
 import { Size } from '@/services/products'
 import { CirclePlus, Heart } from 'lucide-react'
@@ -41,8 +42,9 @@ export default function ProductCard({
 	const { handleAddToCart } = useAddToCart()
 	const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist()
 	const { isAuthenticated } = useAuth()
+	const mounted = useMounted()
 
-	const inWishlist = isInWishlist(id)
+	const inWishlist = mounted && isInWishlist(id)
 
 	const onAddToCart = () => {
 		handleAddToCart({
@@ -89,7 +91,7 @@ export default function ProductCard({
 					)}
 				/>
 				<div className={isHover ? 'opacity-100' : 'opacity-0'}>
-					{isAuthenticated && (
+					{mounted && isAuthenticated && (
 						<Button
 							variant='ghost'
 							className={'absolute top-0 right-0 mr-3 mt-2'}

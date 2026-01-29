@@ -10,7 +10,6 @@ import { accountDataSchema } from '@/lib/validationSchemas'
 import { getInitials } from '@/services/reviews'
 import { useEffect, useMemo, useState } from 'react'
 
-
 export default function AccountPage() {
 	const { user, updateAccount } = useAuth()
 	const [isSuccess, setIsSuccess] = useState<boolean>(false)

@@ -4,6 +4,7 @@ import AppliedFilters from '@/components/ui/AppliedFilters/AppliedFilters'
 import BreadcrumbComponent from '@/components/ui/BreadcrumbComponent/BreadcrumbComponent'
 import FiltersSidebar from '@/components/ui/FilterSidebar/FiltersSidebar'
 import { getCategories, getColors, getSizes } from '@/services/filters'
+import { Size } from '@/services/products'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -22,8 +23,8 @@ export default async function Products() {
 
 	const availableFilters = {
 		availableCategories: categories.map(c => c.name),
-		availableColors: colors.map(c => c.color),
-		availableSizes: sizes.map(s => s.size)
+		availableColors: colors,
+		availableSizes: sizes.map(s => s.size) as Size[]
 	}
 
 	return (

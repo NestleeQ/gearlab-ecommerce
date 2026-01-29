@@ -11,11 +11,13 @@ export default function SimilarProducts({ product }: { product: iProduct }) {
 	const [loading, setLoading] = useState(true)
 
 	useEffect(() => {
-		setLoading(true)
-		getSimilarProducts(product, 4).then(products => {
-			setSimilarProducts(products)
-			setLoading(false)
-		})
+		getSimilarProducts(product, 4)
+			.then(products => {
+				setSimilarProducts(products)
+			})
+			.finally(() => {
+				setLoading(false)
+			})
 	}, [product])
 
 	if (loading) {

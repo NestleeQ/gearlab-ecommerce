@@ -1,7 +1,7 @@
 'use client'
 import { useAddToCart } from '@/hooks/useAddToCart'
 import { formatPrice } from '@/lib/utils'
-import { iProduct } from '@/services/products'
+import { iProduct, Size } from '@/services/products'
 import { Heart, Star } from 'lucide-react'
 import { useState } from 'react'
 import { Badge } from '../../ui/Badge/Badge'
@@ -16,7 +16,7 @@ import Title from '../../ui/Title/Title'
 export default function ProductDetail({ product }: { product: iProduct }) {
 	const [quantity, setQuantity] = useState<number>(1)
 	const [selectedColor, setSelectedColor] = useState<string>(product.color[0])
-	const [selectedSize, setSelectedSize] = useState<string>(product.size[0])
+	const [selectedSize, setSelectedSize] = useState<Size>(product.size[0])
 	const { handleAddToCart } = useAddToCart()
 
 	const onAddToCart = () => {

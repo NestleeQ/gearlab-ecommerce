@@ -10,7 +10,6 @@ import { LoginFormData, loginSchema } from '@/lib/validationSchemas'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
-
 const initialValues: LoginFormData = {
 	email: '',
 	password: ''

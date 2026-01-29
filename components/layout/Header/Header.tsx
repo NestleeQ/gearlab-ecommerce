@@ -3,6 +3,7 @@ import CartIcon from '@/components/ui/CartIcon/CartIcon'
 import Logo from '@/components/ui/Logo/Logo'
 import Menu from '@/components/ui/Menu/Menu'
 import { useAuth } from '@/context/AuthContext'
+import { useMounted } from '@/hooks/useMounted'
 import { ICategory } from '@/services/filters'
 import { User } from 'lucide-react'
 import { useRouter } from 'next/navigation'
@@ -14,6 +15,7 @@ interface IHeader {
 export default function Header({ categories }: IHeader) {
 	const router = useRouter()
 	const { isAuthenticated, user } = useAuth()
+	const mounted = useMounted()
 
 	const handleUserIconClick = (e: React.MouseEvent) => {
 		e.preventDefault()
@@ -36,16 +38,18 @@ export default function Header({ categories }: IHeader) {
 						onClick={handleUserIconClick}
 						className='cursor-pointer relative p-2 rounded-full transition-colors'
 						aria-label={
-							isAuthenticated ? 'Go to profile' : 'Sign in'
+							mounted && isAuthenticated
+								? 'Go to profile'
+								: 'Sign in'
 						}
 						title={
-							isAuthenticated
+							mounted && isAuthenticated
 								? `Logged in as ${user?.name}`
 								: 'Sign in'
 						}
 					>
 						<User className='text-neutral-500 hover:text-neutral-900' />
-						{isAuthenticated && (
+						{mounted && isAuthenticated && (
 							<span className='absolute top-1 right-1 h-2 w-2 bg-green-500 rounded-full'></span>
 						)}
 					</button>

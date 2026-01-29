@@ -1,4 +1,5 @@
 import productsData from '@/data/products.json'
+import { colorMap } from '@/lib/color-map'
 
 export interface ICategory {
 	name: string
@@ -6,7 +7,8 @@ export interface ICategory {
 }
 
 export interface IColor {
-	color: string
+	name: string
+	tailwindClass: string
 	count: number
 }
 
@@ -38,7 +40,8 @@ export async function getColors(): Promise<IColor[]> {
 	})
 
 	return Object.entries(colorCounts).map(([color, count]) => ({
-		color,
+		name: color,
+		tailwindClass: colorMap[color] || 'bg-neutral-200',
 		count
 	}))
 }

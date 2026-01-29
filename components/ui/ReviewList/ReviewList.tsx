@@ -62,7 +62,7 @@ export default function ReviewsList({
 			<>
 				<div className='flex flex-col items-center justify-center py-12'>
 					<p className='text-neutral-500'>No reviews yet</p>
-					<p className='mt-2 text-sm text-neutral-400'>
+					<p className='mt-2 text-body text-neutral-400'>
 						Be the first to review this product
 					</p>
 					<Button

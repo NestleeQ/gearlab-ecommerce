@@ -88,7 +88,7 @@ export default function ReviewDialog({
 					<div>
 						<label
 							htmlFor='email'
-							className='mb-4 block text-sm font-medium text-neutral-900'
+							className='mb-4 block text-body font-medium text-neutral-900'
 						>
 							Email
 						</label>
@@ -107,7 +107,7 @@ export default function ReviewDialog({
 					<div className='mt-3.5'>
 						<label
 							htmlFor='fullName'
-							className='mb-2 block text-sm font-medium text-neutral-900'
+							className='mb-2 block text-body font-medium text-neutral-900'
 						>
 							Full name
 						</label>
@@ -126,7 +126,7 @@ export default function ReviewDialog({
 					<div className='mt-3.5'>
 						<label
 							htmlFor='review'
-							className='mb-2 block text-sm font-medium text-neutral-900'
+							className='mb-2 block text-body font-medium text-neutral-900'
 						>
 							Review
 						</label>

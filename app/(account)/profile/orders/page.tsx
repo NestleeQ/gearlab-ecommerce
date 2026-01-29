@@ -69,7 +69,7 @@ export default function OrdersPage() {
 							<p className='mt-1 text-body text-neutral-500'>
 								Ordered On: {formatDate(order.orderedAt)}
 							</p>
-							<div className='mt-2 space-y-1 text-sm'>
+							<div className='mt-2 space-y-1 text-body'>
 								<div className='flex items-center gap-2 text-neutral-600'>
 									<span>Quantity: {order.quantity}</span>
 									<span className='text-neutral-300'>•</span>
@@ -90,7 +90,7 @@ export default function OrdersPage() {
 						<div className='flex items-center gap-4'>
 							<span
 								className={cn(
-									'rounded-full px-4 py-2 text-sm font-medium capitalize',
+									'rounded-full px-4 py-2 text-body font-medium capitalize',
 									order.status === 'processing' &&
 										'bg-yellow-100 text-yellow-800',
 									order.status === 'completed' &&

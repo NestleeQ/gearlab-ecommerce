@@ -1,9 +1,14 @@
 'use client'
 import { useQueryParams } from '@/hooks/useQueryParams'
+import { colorMap } from '@/lib/color-map'
 import { formatPrice } from '@/lib/utils'
 import { X } from 'lucide-react'
 import { Badge } from '../Badge/Badge'
 import { Button } from '../Button/Button'
+
+const reverseColorMap: { [key: string]: string } = Object.fromEntries(
+	Object.entries(colorMap).map(([key, value]) => [value, key])
+)
 
 export default function AppliedFilters() {
 	const { allParams, removeFilter, clearFilters, updateQueryParams } =
@@ -29,7 +34,10 @@ export default function AppliedFilters() {
 			case 'category':
 				return itemValue.charAt(0).toUpperCase() + itemValue.slice(1)
 			case 'color':
-				return itemValue.charAt(0).toUpperCase() + itemValue.slice(1)
+				return (
+					reverseColorMap[itemValue]?.charAt(0).toUpperCase() +
+						reverseColorMap[itemValue]?.slice(1) || itemValue
+				)
 			case 'size':
 				return itemValue.toUpperCase()
 			default:
@@ -132,23 +140,12 @@ export default function AppliedFilters() {
 							</Badge>
 						))
 					}
-
 					return (
 						<div
 							key={key}
-							className='inline-flex items-center gap-1 bg-gray-100 text-gray-800 px-3 py-1.5 rounded-full text-sm'
+							className='inline-flex items-center gap-1 bg-gray-100 text-gray-800 px-3 py-1.5 rounded-full text-body'
 						>
-							<span>
-								{key === 'search'
-									? `"${value}"`
-									: `${key}: ${value}`}
-							</span>
-							<button
-								onClick={() => removeFilter(key as any)}
-								className='ml-1 text-gray-500 hover:text-gray-700'
-							>
-								<X size={14} />
-							</button>
+							<span>{`${key}: ${value}`}</span>
 						</div>
 					)
 				})}

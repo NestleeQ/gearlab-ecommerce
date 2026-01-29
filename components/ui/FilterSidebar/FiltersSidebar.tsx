@@ -3,11 +3,12 @@
 import FilterSection from '@/components/sections/FilterSection/FilterSection'
 import PriceFilter from '@/components/ui/PriceFilter/PriceFilter'
 import { useQueryParams } from '@/hooks/useQueryParams'
+import { IColor } from '@/services/filters'
 import { Size } from '@/services/products'
 
 interface iFiltersSidebar {
 	availableFilters: {
-		availableColors: string[]
+		availableColors: IColor[]
 		availableSizes: Size[]
 		availableCategories: string[]
 	}
@@ -40,8 +41,9 @@ export default function FiltersSidebar({ availableFilters }: iFiltersSidebar) {
 			key: 'color',
 			type: 'color' as const,
 			options: availableFilters.availableColors.map(color => ({
-				label: color,
-				value: color
+				label: color.name,
+				value: color.tailwindClass,
+				tailwindClass: color.tailwindClass
 			}))
 		},
 		{

@@ -55,7 +55,7 @@ export default function ProductDescription({
 							return (
 								<li
 									key={index}
-									className='flex items-start gap-2 text-sm text-neutral-900'
+									className='flex items-start gap-2 text-body text-neutral-900'
 								>
 									<span className='mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-neutral-600' />
 									<Text color={600}>{elem}</Text>

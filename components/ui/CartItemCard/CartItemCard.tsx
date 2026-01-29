@@ -35,7 +35,7 @@ export default function CartItemCard({ item }: iCartItemCard) {
 						<h3 className='text-body font-medium text-neutral-900'>
 							{item.title}
 						</h3>
-						<div className='mt-1 flex items-center gap-2 text-sm text-neutral-500'>
+						<div className='mt-1 flex items-center gap-2 text-body text-neutral-500'>
 							<span className='flex items-center gap-1.5'>
 								Color:{' '}
 								<span

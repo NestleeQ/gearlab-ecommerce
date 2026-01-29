@@ -11,7 +11,7 @@ export default function ReviewCard({ review }: iReviewCard) {
 
 	return (
 		<div className='flex gap-4 border-b border-neutral-light-100 pb-8 last:border-b-0'>
-			<div className='flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary-100 text-sm font-medium text-primary-900'>
+			<div className='flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary-100 text-body font-medium text-primary-900'>
 				{initials}
 			</div>
 			<div className='flex-1'>

@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils'
 
 interface iFilterSection {
 	title: string
-	options: Array<{ label: string; value: string }>
+	options: Array<{ label: string; value: string; tailwindClass?: string }>
 	selected: string[]
 	type: 'checkbox' | 'color' | 'size'
 	onChange: (values: string[]) => void
@@ -67,17 +67,16 @@ export default function FilterSection({
 				<div className='flex flex-wrap gap-2'>
 					{options.map(option => {
 						const isSelected = selected.includes(option.value)
-						const colorClass = getColorClass(option.value)
 
 						return (
 							<button
 								key={option.value}
 								onClick={() => handleToggle(option.value)}
 								className={cn(
-									'w-8 h-8 rounded-full border-2 transition-all',
-									colorClass,
+									'w-8 h-8 rounded-full hover:border hover:border-1.7',
+									option.tailwindClass,
 									isSelected
-										? 'border-neutral-900 scale-110'
+										? 'border border-1.7 border-neutral-900'
 										: 'border-transparent hover:border-neutral-300'
 								)}
 								title={option.label}
@@ -113,22 +112,4 @@ export default function FilterSection({
 			)}
 		</div>
 	)
-}
-
-function getColorClass(colorName: string): string {
-	const colorMap: Record<string, string> = {
-		blue: 'bg-primary-800',
-		red: 'bg-semantic-red-800',
-		green: 'bg-semantic-green-800',
-		yellow: 'bg-semantic-yellow-800',
-		black: 'bg-neutral-900',
-		white: 'bg-white border border-neutral-300',
-		gray: 'bg-neutral-400',
-		purple: 'bg-purple-400',
-		pink: 'bg-pink-400',
-		orange: 'bg-orange-400'
-	}
-
-	const key = colorName.toLowerCase().split(' ')[0]
-	return colorMap[key] || 'bg-neutral-200'
 }

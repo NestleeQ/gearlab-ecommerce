@@ -51,7 +51,7 @@ export default function OrderSummary({
 					</div>
 				))}
 				{items.length > 3 && (
-					<div className='flex h-16 w-16 items-center justify-center rounded-md bg-neutral-100 text-sm font-medium text-neutral-600'>
+					<div className='flex h-16 w-16 items-center justify-center rounded-md bg-neutral-100 text-body font-medium text-neutral-600'>
 						+{items.length - 3}
 					</div>
 				)}
