@@ -94,7 +94,7 @@ export default function ProductCard({
 							height={312}
 							className={cn(
 								'w-full h-auto object-cover transition-opacity duration-300',
-								isHover ? 'opacity-50' : 'opacity-100'
+								isHover ? 'lg:opacity-50' : 'lg:opacity-100'
 							)}
 						/>
 					</div>
@@ -103,7 +103,7 @@ export default function ProductCard({
 				<div
 					className={cn(
 						'absolute inset-0 transition-opacity duration-300 pointer-events-none',
-						isHover ? 'opacity-100' : 'opacity-0'
+						'opacity-100 lg:opacity-0 lg:group-hover:opacity-100'
 					)}
 				>
 					{mounted && isAuthenticated && (

@@ -6,7 +6,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
 		<>
 			{children}
 			<Toaster
-				position='top-right'
+				position='bottom-left'
 				toastOptions={{
 					classNames: {
 						toast: 'bg-white border border-neutral-200 shadow-lg',
