@@ -1,88 +1,99 @@
-🌐 README available in:
+🌐 README доступна на нескольких языках:
 
-- [English](README.md)
-- [Русский](README.ru.md)
+- [Русский](README.md)
+- [English](README.en.md)
 
 # 🛒 GearLab E-commerce
 
-A modern, responsive e-commerce storefront built with Next.js, React, and
-Tailwind CSS. This project focuses exclusively on the frontend and includes a
-product catalog, shopping cart, user authentication flows, and a clean,
-intuitive user interface.
+Современный, адаптивный интернет-магазин, созданный с использованием Next.js,
+React и Tailwind CSS. Проект реализует исключительно frontend-часть и включает
+каталог товаров, корзину покупок, аутентификацию пользователей и чистый,
+интуитивно понятный пользовательский интерфейс.
 
 ## 🚀 Live Demo
 
 🔗 https://gearlab-ecommerce.vercel.app
 
-A deployed demo version showcasing the user interface, responsiveness, and
-overall frontend architecture of the application.
+Задеплоенная демо-версия проекта, предназначенная для демонстрации
+пользовательского интерфейса, адаптивности и архитектуры frontend-приложения.
 
-## 📌 Project Overview
+## 📌 Обзор проекта
 
-GearLab E-commerce is a sample online store designed to demonstrate a wide range
-of frontend development practices and UI/UX patterns. The application allows
-users to browse products, view detailed product information, manage a shopping
-cart, and simulate a checkout flow.
+GearLab E-commerce — это демонстрационный онлайн-магазин, разработанный для
+показа широкого спектра практик frontend-разработки и UI/UX-паттернов.
+Приложение позволяет пользователям просматривать товары, изучать подробную
+информацию о них, управлять корзиной и имитировать процесс оформления заказа.
 
-This project is not intended to be a production-ready solution. Its primary
-focus is on frontend architecture, UX patterns, accessibility, and modern
-approaches to building React / Next.js applications.
+Проект не является production-решением. Основной фокус сделан на архитектуре
+интерфейса, UX-паттернах, доступности и современных подходах к разработке React
+/ Next.js-приложений.
 
-### ✨ Key Features
+### ✨ Ключевые возможности
 
-- **Product Catalog** 📦: Browse products with filtering options.
-- **Product Details** 🧾: Detailed product pages with descriptions and images.
-- **Shopping Cart** 🛍️: Add, update, and remove items.
-- **Checkout Flow** 💳: A streamlined order simulation.
-- **User Authentication** 🔐: Login, signup, forgot password, and reset
-  password.
-- **User Account Management** 👤: Placeholders for profiles and order history.
-- **Responsive Design** 📱💻: Optimized for all screen sizes.
-- **Modern UI Components** 🎨: Built using shadcn/ui.
+- **Каталог товаров** 📦: Просмотр ассортимента с возможностью фильтрации
+  (например, по цене или категории).
+- **Карточка товара** 🧾: Детальная информация о товаре, включая описание,
+  изображения и доступные опции.
+- **Корзина покупок** 🛍️: Добавление, обновление и удаление товаров.
+- **Процесс оформления заказа** 💳: Упрощённый сценарий имитации размещения
+  заказа.
+- **Аутентификация пользователей** 🔐: Страницы входа, регистрации,
+  восстановления и сброса пароля.
+- **Управление аккаунтом пользователя** 👤: Заготовки для профиля пользователя,
+  истории заказов и списков желаемого.
+- **Адаптивный дизайн** 📱💻: Оптимизация под различные размеры экранов.
+- **Современные UI-компоненты** 🎨: Использование shadcn/ui для создания
+  доступных и настраиваемых интерфейсов.
 
-## 🧰 Technologies Used
+## 🧰 Используемые технологии
 
-- **Framework** ⚙️: [Next.js 16](https://nextjs.org/)
-- **Library** ⚛️: [React 19](https://react.dev/)
-- **Language** 🧠: [TypeScript](https://www.typescriptlang.org/)
-- **Styling** 🎨: [Tailwind CSS](https://tailwindcss.com/)
+Проект основан на современном стеке веб-технологий:
 
-### 🔧 Key Libraries and Tools
+- **Фреймворк** ⚙️: [Next.js 16](https://nextjs.org/)
+- **Библиотека** ⚛️: [React 19](https://react.dev/)
+- **Язык** 🧠: [TypeScript](https://www.typescriptlang.org/)
+- **Стилизация** 🎨: [Tailwind CSS](https://tailwindcss.com/)
 
-- **UI Components** 🧩: [shadcn/ui](https://ui.shadcn.com/)
-- **Icons** 🖼️: `lucide-react`
-- **Notifications** 🔔: `sonner`
-- **Animations** 🎞️: `tw-animate-css`
-- **Linting** 🧹: [ESLint](https://eslint.org/)
+### 🔧 Основные библиотеки и инструменты
 
-## 🗄️ Data Source (Local JSON API)
+- **UI-компоненты** 🧩: [shadcn/ui](https://ui.shadcn.com/)
+- **Иконки** 🖼️: `lucide-react`
+- **Уведомления** 🔔: `sonner`
+- **Анимации** 🎞️: `tw-animate-css`
+- **Линтинг** 🧹: [ESLint](https://eslint.org/)
 
-For demonstration purposes, the project uses local JSON files
-(`data/products.json`, `data/reviews.json`, etc.) to simulate a backend API.
-This approach keeps the focus on frontend logic and state management.
+## 🗄️ Источник данных (локальный JSON API)
 
-## 💻 Getting Started (Local Development)
+В демонстрационных целях проект использует локальные JSON-файлы
+(`data/products.json`, `data/reviews.json` и т.д.) для имитации backend API.
+Такой подход позволяет получить полностью функциональный frontend без
+необходимости в реальном сервере и подчёркивает ориентацию проекта именно на
+UI-логику и управление состоянием.
 
-This section is intended for running the project locally and exploring the
-codebase. To view the final result, please refer to the Live Demo link above.
+## 💻 Начало работы (локальная разработка)
 
-1. **Clone the repository**:
+Этот раздел предназначен для локального запуска проекта и ознакомления с кодовой
+базой. Для просмотра готового интерфейса используйте ссылку на Live Demo.
+
+Чтобы запустить проект локально, выполните следующие шаги:
+
+1.  **Клонируйте репозиторий**:
     ```bash
     git clone https://github.com/NestleeQ/gearlab-ecommerce.git
     cd gearlab-ecommerce
     ```
-2. **Install dependencies**:
+2.  **Установите зависимости**:
     ```bash
     npm install
     ```
-3. **Run the development server**:
+3.  **Запустите сервер разработки**:
     ```bash
     npm run dev
     ```
-    Open [http://localhost:3000 ](http://localhost:3000) in the browser to see
-    the application.
+    Откройте [http://localhost:3000](http://localhost:3000) в браузере, чтобы
+    увидеть приложение.
 
-## 📄 License
+## 📄 Лицензия
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file
-for details.
+Проект распространяется по лицензии MIT — подробности см. в файле
+[LICENSE](LICENSE)
