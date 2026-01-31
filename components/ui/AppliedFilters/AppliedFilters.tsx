@@ -84,14 +84,16 @@ export default function AppliedFilters() {
 							<span className='whitespace-nowrap'>
 								Price:{' '}
 								{formatPrice(
-									parseInt(allParams.price_min || '0')
+									parseInt(allParams.price_min || '0'),
+									false
 								)}{' '}
 								-{' '}
 								{formatPrice(
 									parseInt(
 										allParams.price_max ||
 											MAX_PRICE.toString()
-									)
+									),
+									false
 								)}
 							</span>
 							<Button

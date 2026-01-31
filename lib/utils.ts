@@ -4,12 +4,13 @@ export function cn(...inputs: ClassValue[]) {
 	return clsx(inputs)
 }
 
-export function formatPrice(priceInCents: number): string {
+export function formatPrice(price: number, showCents: boolean = true): string {
 	return new Intl.NumberFormat('en-US', {
 		style: 'currency',
 		currency: 'USD',
-		minimumFractionDigits: 2
-	}).format(priceInCents)
+		minimumFractionDigits: showCents ? 2 : 0,
+		maximumFractionDigits: showCents ? 2 : 0
+	}).format(price)
 }
 
 export function centsToDollars(cents: number): number {
