@@ -5,6 +5,10 @@
 
 # 🛒 GearLab E-commerce
 
+<p align="center">
+  <img src="readme-assets/banner-en.png" width="1200" alt="GearLab preview en">
+</p>
+
 A modern, responsive e-commerce storefront built with Next.js, React, and
 Tailwind CSS. This project focuses exclusively on the frontend and includes a
 product catalog, shopping cart, user authentication flows, and a clean,
